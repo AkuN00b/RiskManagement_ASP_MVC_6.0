@@ -1,0 +1,141 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = RiskManagementScratch
+build_property.RootNamespace = RiskManagementScratch
+build_property.ProjectDir = C:\Belajar C# asp.NET\MVC\RiskManagementScratch\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = C:\Belajar C# asp.NET\MVC\RiskManagementScratch
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Aktor/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWt0b3JcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Aktor/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWt0b3JcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Aktor/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWt0b3JcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/DampakRisiko/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFtcGFrUmlzaWtvXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/DampakRisiko/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFtcGFrUmlzaWtvXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/DampakRisiko/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFtcGFrUmlzaWtvXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/DivisionMember/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGl2aXNpb25NZW1iZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Divisi/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGl2aXNpXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Divisi/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGl2aXNpXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Divisi/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGl2aXNpXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/FrekuensiRisiko/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnJla3VlbnNpUmlzaWtvXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/FrekuensiRisiko/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnJla3VlbnNpUmlzaWtvXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/FrekuensiRisiko/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnJla3VlbnNpUmlzaWtvXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/KategoriDetailRisiko/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlEZXRhaWxSaXNpa29cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/KategoriDetailRisiko/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlEZXRhaWxSaXNpa29cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/KategoriDetailRisiko/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlEZXRhaWxSaXNpa29cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/KategoriRisiko/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlSaXNpa29cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/KategoriRisiko/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlSaXNpa29cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/KategoriRisiko/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlSaXNpa29cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/RiskManager/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmlza01hbmFnZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Shared/_DivisionMemberLayoutPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9EaXZpc2lvbk1lbWJlckxheW91dFBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Shared/_RiskManagerLayoutPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9SaXNrTWFuYWdlckxheW91dFBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/StrategiKunci/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RyYXRlZ2lLdW5jaVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/StrategiKunci/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RyYXRlZ2lLdW5jaVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/StrategiKunci/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RyYXRlZ2lLdW5jaVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-9zzpu09l83

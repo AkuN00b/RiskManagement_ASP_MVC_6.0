@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RiskManagementScratch</title>
+    <script defer src="~/plugins/fontawesome/js/all.min.js"></script>
+    <link id="theme-style" rel="stylesheet" href="~/css/portal.css">
+    
+    <style type="text/css">
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .untukBackground img {
+            max-width: 100%;
+        }
+
+        .untukBackground {
+            background-image:url('/images/background/background.jpg');
+            margin: 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .bgKonten {
+            background-color: rgba(255, 255, 255, .9);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="app app-login p-0">
+    <div class="row g-0 app-auth-wrapper untukBackground">
+        <div class="col-12 col-md-12 col-lg-12 auth-main-col text-center p-5">
+            <div class="d-flex flex-column align-content-end">
+                <div class="app-auth-body mx-auto p-5 bgKonten">
+                    @RenderBody()
+                </div><!--//auth-body-->
+
+                <footer class="app-auth-footer">
+                    <div class="container text-center py-3">
+                         <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+                    <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+
+                    </div>
+                </footer><!--//app-auth-footer-->	
+            </div><!--//flex-column-->   
+        </div><!--//auth-main-col-->    
+    </div><!--//row-->
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

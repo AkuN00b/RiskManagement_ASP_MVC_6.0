@@ -1,0 +1,56 @@
+﻿@model IEnumerable<FrekuensiRisiko>
+
+@{
+    ViewData["Title"] = "Master Frekuensi Risiko";
+    Layout = "~/Views/Shared/_RiskManagerLayoutPage.cshtml";
+}
+
+<div class="app-content pt-3 p-md-3 p-lg-4" style="height: 1000px;">
+    <div class="container-xl">
+
+        <div class="bgKonten">
+            <h1 class="app-page-title mb-4 p-3">
+                @ViewData["Title"]
+
+                <span class="float-end">
+                    <a class="btn btn-success text-white" asp-controller="FrekuensiRisiko" asp-action="Create"><i class="fa-solid fa-plus"></i> Tambah</a>
+                </span>
+            </h1>
+        </div>
+
+        <div class="bgKonten">
+            <table class="table text-center tableNya">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nama</th>
+                        <th>Nilai</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model.Count() == 0)
+                    {
+                            <tr><td colspan="4">Tidak ada data</td></tr>
+                    }
+                    else
+                    {
+                        @foreach (var obj in Model)
+                        {
+                            <tr class="anakTable">
+                                <td>@obj.Id_Frekuensi_Risiko</td>
+                                <td>@obj.Nama_Frekuensi_Risiko</td>
+                                <td>@obj.Nilai_Frekuensi_Risiko</td>
+                                <td>
+                                    <a asp-action="Edit" class="btn btn-warning text-white" asp-route-id="@obj.Id_Frekuensi_Risiko"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <a asp-action="Delete" class="btn btn-danger text-white" asp-route-id="@obj.Id_Frekuensi_Risiko"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                </td>
+                            </tr>   
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model RiskManagementScratch.Models.AksiKunci
+
+@{
+    ViewData["Title"] = "Tambah Aksi Kunci";
+    Layout = "~/Views/Shared/_RiskManagerLayoutPage.cshtml";
+}
+
+<div class="app-content pt-3 p-md-3 p-lg-4" style="height: 1000px;">
+    <div class="container-xl">
+
+        <div class="bgKonten">
+            <h1 class="app-page-title mb-4 p-3">
+                Master Aksi Kunci - @ViewData["Title"]
+
+                <span class="float-end">
+                    <a class="btn btn-warning text-white" asp-controller="AksiKunci" asp-action="Index"><i class="fa-solid fa-left-long"></i> Kembali</a>
+                </span>
+            </h1>
+        </div>
+
+        <div class="bgKonten">
+            <form method="post" class="mt-4 p-4">
+                <div class="mb-3">
+                    <label for="" class="form-label">Nama Aksi Kunci</label>
+                    <input type="text" class="form-control" asp-for="Nama_Aksi_Kunci">
+                    <span asp-validation-for="Nama_Aksi_Kunci" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Aksi Utama</label>
+                    <select asp-for="Id_Aksi_Utama" name="Id_Aksi_Utama" class="form-select" asp-items="ViewBag.AksiUtamas"></select>
+                    <span asp-validation-for="Id_Aksi_Utama" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-success btn-block text-white"><i class="fa-regular fa-floppy-disk"></i> Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

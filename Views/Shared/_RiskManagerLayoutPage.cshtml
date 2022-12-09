@@ -194,7 +194,7 @@
                         </li><!--//nav-item-->
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link " href="index.html">
+                            <a class="nav-link @(ViewBag.AksiUtama == true ? "active" : "")" asp-controller="AksiUtama" asp-action="Index">
                                 <span class="nav-icon">
                                     <i class="fa-solid fa-wand-magic fa-2x mr-5" width="1em" height="1em"></i>
                                  </span>
@@ -203,22 +203,13 @@
                         </li><!--//nav-item-->
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link " href="index.html">
+                            <a class="nav-link @(ViewBag.AksiKunci == true ? "active" : "")" asp-controller="AksiKunci" asp-action="Index">
                                 <span class="nav-icon">
                                     <i class="fa-solid fa-wand-sparkles fa-2x mr-5" width="1em" height="1em"></i>
                                  </span>
                                  <span class="nav-link-text jarakNavbar">Aksi Kunci</span>
                             </a><!--//nav-link-->
                         </li><!--//nav-item-->
-                        <li class="nav-item">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link " href="index.html">
-                                <span class="nav-icon">
-                                    <i class="fa-solid fa-vial-circle-check fa-2x mr-5" width="1em" height="1em"></i>
-                                 </span>
-                                 <span class="nav-link-text jarakNavbar">Detail Penyebab Risiko</span>
-                            </a><!--//nav-link-->
-                        </li><!--//nav-item--> 
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                             <a class="nav-link @(ViewBag.KategoriDetailRisiko == true ? "active" : "")" asp-controller="KategoriDetailRisiko" asp-action="Index">

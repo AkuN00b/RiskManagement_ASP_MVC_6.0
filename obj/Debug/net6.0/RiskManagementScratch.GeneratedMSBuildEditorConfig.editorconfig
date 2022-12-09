@@ -16,6 +16,30 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = C:\Belajar C# asp.NET\MVC\RiskManagementScratch
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/AksiKunci/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWtzaUt1bmNpXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/AksiKunci/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWtzaUt1bmNpXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/AksiKunci/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWtzaUt1bmNpXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/AksiUtama/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWtzaVV0YW1hXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/AksiUtama/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWtzaVV0YW1hXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/AksiUtama/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWtzaVV0YW1hXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/Aktor/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWt0b3JcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

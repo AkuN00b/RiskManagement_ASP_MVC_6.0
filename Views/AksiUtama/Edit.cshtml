@@ -1,0 +1,42 @@
+﻿@model RiskManagementScratch.Models.AksiUtama
+
+@{
+    ViewData["Title"] = "Edit Aksi Utama";
+    Layout = "~/Views/Shared/_RiskManagerLayoutPage.cshtml";
+}
+
+<div class="app-content pt-3 p-md-3 p-lg-4" style="height: 1000px;">
+    <div class="container-xl">
+
+        <div class="bgKonten">
+            <h1 class="app-page-title mb-4 p-3">
+                Master Aksi Utama - @ViewData["Title"]
+
+                <span class="float-end">
+                    <a class="btn btn-warning text-white" asp-controller="AksiUtama" asp-action="Index"><i class="fa-solid fa-left-long"></i> Kembali</a>
+                </span>
+            </h1>
+        </div>
+
+        <div class="bgKonten">
+            <form method="post" class="mt-4 p-4">
+                <input type="hidden" class="form-control" asp-for="Id_Aksi_Utama">
+                <div class="mb-3">
+                    <label for="" class="form-label">Nama Aksi Utama</label>
+                    <input type="text" class="form-control" asp-for="Nama_Aksi_Utama">
+                    <span asp-validation-for="Nama_Aksi_Utama" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Strategi Kunci</label>
+                    <select asp-for="Id_Strategi_Kunci" name="Id_Strategi_Kunci" class="form-select" asp-items="ViewBag.StrategiKuncis"></select>
+                    <span asp-validation-for="Id_Strategi_Kunci" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-success btn-block text-white"><i class="fa-regular fa-floppy-disk"></i> Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -21,6 +21,50 @@ namespace RiskManagementScratch.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("RiskManagementScratch.Models.AksiKunci", b =>
+                {
+                    b.Property<int>("Id_Aksi_Kunci")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_Aksi_Kunci"), 1L, 1);
+
+                    b.Property<int>("Id_Aksi_Utama")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nama_Aksi_Kunci")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id_Aksi_Kunci");
+
+                    b.HasIndex("Id_Aksi_Utama");
+
+                    b.ToTable("AksiKuncis");
+                });
+
+            modelBuilder.Entity("RiskManagementScratch.Models.AksiUtama", b =>
+                {
+                    b.Property<int>("Id_Aksi_Utama")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_Aksi_Utama"), 1L, 1);
+
+                    b.Property<int>("Id_Strategi_Kunci")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nama_Aksi_Utama")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id_Aksi_Utama");
+
+                    b.HasIndex("Id_Strategi_Kunci");
+
+                    b.ToTable("AksiUtamas");
+                });
+
             modelBuilder.Entity("RiskManagementScratch.Models.Aktor", b =>
                 {
                     b.Property<int>("Id_Aktor")
@@ -152,6 +196,28 @@ namespace RiskManagementScratch.Migrations
                     b.HasKey("Id_Strategi_Kunci");
 
                     b.ToTable("StrategiKuncis");
+                });
+
+            modelBuilder.Entity("RiskManagementScratch.Models.AksiKunci", b =>
+                {
+                    b.HasOne("RiskManagementScratch.Models.AksiUtama", "AksiUtamas")
+                        .WithMany()
+                        .HasForeignKey("Id_Aksi_Utama")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AksiUtamas");
+                });
+
+            modelBuilder.Entity("RiskManagementScratch.Models.AksiUtama", b =>
+                {
+                    b.HasOne("RiskManagementScratch.Models.StrategiKunci", "StrategiKuncis")
+                        .WithMany()
+                        .HasForeignKey("Id_Strategi_Kunci")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StrategiKuncis");
                 });
 #pragma warning restore 612, 618
         }

@@ -28,9 +28,4 @@
     <_ContentIncludedByDefault Remove="Views\Shared\_RiskManagerLayoutPage.cshtml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\AksiUtama\" />
-    <Folder Include="Views\AksiKunci\" />
-  </ItemGroup>
-
 </Project>

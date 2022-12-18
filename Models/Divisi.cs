@@ -6,6 +6,6 @@ namespace RiskManagementScratch.Models
     {
         [Key]
         public int Id_Divisi { get; set; }
-        public string Nama_Divisi { get; set; } = null!;
+        public string Nama_Divisi { get; set; }
     }
 }

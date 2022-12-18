@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RiskManagementScratch.Data;
 using RiskManagementScratch.Models;
 using System.Diagnostics;
@@ -7,11 +8,11 @@ namespace RiskManagementScratch.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _applicationDbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext applicationDbContext)
         {
-            _logger = logger;
+            _applicationDbContext = applicationDbContext;
         }
 
         [HttpGet]
@@ -41,9 +42,8 @@ namespace RiskManagementScratch.Controllers
         [HttpPost]
         public IActionResult Index(Aktor _aktor)
         {
-            RiskManagementScratchContext _riskManagementScratchContext = new RiskManagementScratchContext();
-            var status = _riskManagementScratchContext.Aktor.Where(m => m.Username == _aktor.Username && m.Password == _aktor.Password).FirstOrDefault();
-            
+            var status = _applicationDbContext.Aktors.Include(q => q.Divisi).Where(m => m.Username == _aktor.Username && m.Password == _aktor.Password).FirstOrDefault();
+
             if (status == null)
             {
                 ViewBag.LoginStatus = 0;
@@ -51,6 +51,13 @@ namespace RiskManagementScratch.Controllers
             {
                 HttpContext.Session.SetString("username", _aktor.Username);
                 HttpContext.Session.SetString("role", status.Role);
+                HttpContext.Session.SetString("idDivisi", status.Id_Divisi.ToString());
+                HttpContext.Session.SetString("idAktor", status.Id_Aktor.ToString());
+
+                if (status.Id_Divisi != null)
+                {
+                    HttpContext.Session.SetString("namaDivisi", status.Divisi.Nama_Divisi);
+                }
 
                 if (status.Role == "Risk Manager")
                 {

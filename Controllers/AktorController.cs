@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RiskManagementScratch.Data;
 using RiskManagementScratch.Models;
@@ -30,7 +31,7 @@ namespace RiskManagementScratch.Controllers
                 }
                 else
                 {
-                    var aktors = _applicationDbContext.Aktors.ToList();
+                    var aktors = _applicationDbContext.Aktors.Include(q => q.Divisi).ToList();
                     return View(aktors);
                 }
             }
@@ -40,7 +41,29 @@ namespace RiskManagementScratch.Controllers
             }
         }
 
-		[HttpGet]
+        private List<SelectListItem> GetDivisis()
+        {
+            List<SelectListItem> listDivisis = new List<SelectListItem>();
+            var divisis = _applicationDbContext.Divisis.Select(Divisi => Divisi);
+
+            listDivisis = divisis.Select(d => new SelectListItem()
+            {
+                Value = d.Id_Divisi.ToString(),
+                Text = d.Nama_Divisi.ToString()
+            }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Text = "-- Pilih Divisi --",
+                Value = ""
+            };
+
+            listDivisis.Insert(0, defItem);
+
+            return listDivisis;
+        }
+
+        [HttpGet]
 		public IActionResult Create()
 		{
 			ViewBag.Username = HttpContext.Session.GetString("username");
@@ -56,7 +79,8 @@ namespace RiskManagementScratch.Controllers
 				}
 				else
 				{
-					return View();
+                    ViewBag.Divisis = GetDivisis();
+                    return View();
 				}
 			}
 			else
@@ -87,7 +111,7 @@ namespace RiskManagementScratch.Controllers
                         _applicationDbContext.SaveChanges();
                         return RedirectToAction("Index");
                     }
-
+                    ViewBag.Divisis = GetDivisis();
                     return View(aktor);
                 }
             }
@@ -112,6 +136,7 @@ namespace RiskManagementScratch.Controllers
                 }
                 else
                 {
+                    ViewBag.Divisis = GetDivisis();
                     Aktor aktor = _applicationDbContext.Aktors.Find(id);
                     return View(aktor);
                 }
@@ -145,6 +170,7 @@ namespace RiskManagementScratch.Controllers
                         return RedirectToAction("Index");
                     }
 
+                    ViewBag.Divisis = GetDivisis();
                     return View(aktor);
                 }
             }

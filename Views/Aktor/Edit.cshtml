@@ -36,6 +36,13 @@
                     </select>
                     <span asp-validation-for="Role" class="text-danger"></span>
                 </div>
+                
+                <input type="hidden" id="Role" asp-for="Role" />
+
+                <div id="namaDivisi" class="mb-3" style="display: none;">
+                    <label for="" class="form-label">Divisi</label>
+                    <select asp-for="Id_Divisi" name="Id_Divisi" class="form-select" asp-items="ViewBag.Divisis"></select>
+                </div>
 
                 <div class="d-grid gap-2 mt-4">
                     <button type="submit" class="btn btn-success btn-block text-white"><i class="fa-regular fa-floppy-disk"></i> Submit</button>
@@ -44,3 +51,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    const el = document.getElementById('Role');
+    const box = document.getElementById('namaDivisi');
+
+    el.addEventListener('change', function handleChange(event) {
+      if (event.target.value === 'Division Member') {
+        box.style.display = 'block';
+      } else {
+        box.style.display = 'none';
+      }
+    });
+
+    var x = document.getElementById("Role").value;
+    if (x === "Division Member") {
+        box.style.display = 'block';
+    }
+</script>

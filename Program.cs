@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Core.Types;
 using RiskManagementScratch.Data;
 
 var builder = WebApplication.CreateBuilder(args);

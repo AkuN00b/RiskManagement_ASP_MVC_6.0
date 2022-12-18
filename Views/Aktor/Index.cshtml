@@ -26,6 +26,7 @@
                         <th>Username</th>
                         <th>Password</th>
                         <th>Role</th>
+                        <th>Divisi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -44,6 +45,15 @@
                                 <td>@obj.Username</td>
                                 <td>@obj.Password</td>
                                 <td>@obj.Role</td>
+                                <td>
+                                    @if (obj.Id_Divisi == null)
+                                    {
+                                        <p>-</p>
+                                    } else
+                                    {
+                                        @obj.Divisi.Nama_Divisi
+                                    }
+                                </td>
                                 <td>
                                     <a asp-action="Edit" class="btn btn-warning text-white" asp-route-id="@obj.Id_Aktor"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                     <a asp-action="Delete" class="btn btn-danger text-white" asp-route-id="@obj.Id_Aktor"><i class="fa-solid fa-trash"></i> Hapus</a>

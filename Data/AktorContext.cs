@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RiskManagementScratch.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RiskManagementScratch.Data
 {
@@ -9,5 +11,8 @@ namespace RiskManagementScratch.Data
         public string Username { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string Role { get; set; } = null!;
+        [ForeignKey("Divisi")]
+        public int? Id_Divisi { get; set; }
+        public Divisi? Divisi { get; set; }
     }
 }

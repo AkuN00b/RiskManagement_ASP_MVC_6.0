@@ -51,6 +51,11 @@ namespace RiskManagementScratch.Data
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("username");
+
+                entity.Property(e => e.Id_Divisi)
+                    .HasMaxLength(13)
+                    .IsUnicode(false)
+                    .HasColumnName("id_divisi");
             });
 
             OnModelCreatingPartial(modelBuilder);

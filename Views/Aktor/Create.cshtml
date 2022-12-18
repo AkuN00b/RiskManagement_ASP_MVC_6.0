@@ -32,12 +32,17 @@
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">Role</label>
-                    <select class="form-select" asp-for="Role">
+                    <select class="form-select" asp-for="Role" id="Role">
                         <option value="">-- Pilih Role --</option>
                         <option value="Division Member">Division Member</option>
                         <option value="Risk Manager">Risk Manager</option>
                     </select>
                     <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+
+                <div id="namaDivisi" class="mb-3" style="display: none">
+                    <label for="" class="form-label">Divisi</label>
+                    <select asp-for="Id_Divisi" name="Id_Divisi" class="form-select" asp-items="ViewBag.Divisis"></select>
                 </div>
 
                 <div class="d-grid gap-2 mt-4">
@@ -47,3 +52,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    const el = document.getElementById('Role');
+
+    const box = document.getElementById('namaDivisi');
+
+    el.addEventListener('change', function handleChange(event) {
+      if (event.target.value === 'Division Member') {
+        box.style.display = 'block';
+      } else {
+        box.style.display = 'none';
+      }
+    });
+</script>

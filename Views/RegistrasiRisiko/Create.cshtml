@@ -1,0 +1,252 @@
+﻿@model RiskManagementScratch.Models.RegistrasiDanDetailRisiko
+
+@{
+    ViewData["Title"] = "Registrasi Proyek Baru";
+    Layout = "~/Views/Shared/_DivisionMemberLayoutPage.cshtml";
+}
+
+<div class="app-content pt-3 p-md-3 p-lg-4" style="height: 2000px;">
+    <div class="container-xl">
+
+        <div class="bgKonten">
+            <h1 class="app-page-title mb-4 p-3">
+                @ViewData["Title"]
+
+                <span class="float-end">
+                    <a class="btn btn-warning text-white" asp-controller="DivisionMember" asp-action="Index"><i class="fa-solid fa-left-long"></i> Kembali</a>
+                </span>
+            </h1>
+        </div>
+
+        <div class="bgKonten">
+            <form method="post" class="mt-4 p-4">
+                <div class="row mb-3">
+                    <h5>Info Pemilik Registrasi Risiko</h5>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Nama Divisi</label>
+                            <input type="hidden" class="form-control" asp-for="RR.Id_Divisi" value="@ViewBag.IdDivisi">
+                            <input type="text" class="form-control" readonly value="@ViewBag.namaDivisi">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Nama Aktor</label>
+                            <input type="hidden" class="form-control" asp-for="RR.Id_Aktor" value="@ViewBag.IdAktor">
+                            <input type="text" class="form-control" readonly value="@ViewBag.Username">
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="row mb-3">
+                    <h5>Strategi</h5>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Strategi Kunci</label>
+                            <select name="Id_Strategi_Kunci" class="form-select" asp-items="ViewBag.StrategiKuncis"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Aksi Utama</label>
+                            <select name="Id_Aksi_Utama" class="form-select" asp-items="ViewBag.AksiUtamas"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Aksi Kunci</label>
+                            <select name="Id_Aksi_Kunci" asp-for="RR.Id_Aksi_Kunci" class="form-select" asp-items="ViewBag.AksiKuncis"></select>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="row mb-3">
+                    <h5>Risiko Utama</h5>
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Dampak Risiko</label>
+                            <textarea name="Dampak_Risiko" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Kategori Risiko</label>
+                            <select name="Id_Kategori_Risiko" class="form-select" asp-items="ViewBag.KategoriRisikos"></select>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="row mb-3">
+                    <h5>Risiko Awal</h5>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Dampak</label>
+                            <select name="Id_Dampak_Risiko_Awal" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Frekuensi</label>
+                            <select name="Id_Frekuensi_Risiko_Awal" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Rata - Rata</label>
+                            <input type="hidden" asp-for="RR.Rata_Rata_Risiko_Awal" />
+                            <div class="progress" style="height: 31px; margin-top: 3px; border: 1px solid #ced4da;">
+                              <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 93%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="row mb-3">
+                    <h5>
+                        Penyebab Risiko
+
+                        <span class="float-end">
+                            <a class="btn btn-success text-white"><i class="fa-solid fa-plus"></i> Tambah Baris</a>
+                            <a class="btn btn-danger text-white"><i class="fa-solid fa-minus"></i> Hapus Baris</a>
+                        </span>
+                    </h5>
+
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Kategori</label>
+                            <select name="Id_Kategori_Detail_Risiko" class="form-select" asp-items="ViewBag.KategoriDetailRisikos"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Deskripsi</label>
+                            <textarea name="Deskripsi" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Probabilitas</label>
+                            <input type="number" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Control</label>
+                            <textarea name="Control" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Divisi</label>
+                            <select name="Id_Divisi" class="form-select" asp-items="ViewBag.Divisis"></select>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="row mb-3">
+                    <h5>Sisa Risiko</h5>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Dampak</label>
+                            <select name="Id_Dampak_Sisa_Risiko" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Frekuensi</label>
+                            <select name="Id_Frekuensi_Sisa_Risiko" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Rata - Rata</label>
+                            <input type="hidden" asp-for="RR.Rata_Rata_Sisa_Risiko" />
+                            <div class="progress" style="height: 31px; margin-top: 3px; border: 1px solid #ced4da;">
+                              <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 93%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="row mb-3">
+                    <h5>Projek</h5>
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Rencana Pemeliharaan</label>
+                            <textarea name="Rencana_Pemeliharaan" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="row mb-3">
+                    <h5>Harapan Risiko</h5>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Dampak</label>
+                            <select name="Id_Dampak_Harapan_Risiko" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Frekuensi</label>
+                            <select name="Id_Frekuensi_Harapan_Risiko" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Rata - Rata</label>
+                            <input type="hidden" asp-for="RR.Rata_Rata_Harapan_Risiko" />
+                            <div class="progress" style="height: 31px; margin-top: 3px; border: 1px solid #ced4da;">
+                              <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 93%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="row mb-3">
+                    <h5>Penanggung Jawab</h5>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Pemilik Risiko</label>
+                            <input type="text" class="form-control" readonly value="@ViewBag.Username">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Tanggal</label>
+                            <input type="date" class="form-control" />
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-success btn-block text-white"><i class="fa-regular fa-floppy-disk"></i> Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

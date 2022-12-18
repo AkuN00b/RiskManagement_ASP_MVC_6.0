@@ -93,7 +93,7 @@
                     </div><!--//col-->
                     <div class="app-search-box col">
                         <form class="app-search-form text-black">   
-                            <b>@ViewBag.Role : @ViewBag.Username</b>
+                            <b>@ViewBag.Role : @ViewBag.Username (@ViewBag.namaDivisi)</b>
                         </form>
                     </div><!--//app-search-box-->
 
@@ -114,7 +114,7 @@
             <div class="sidepanel-inner d-flex flex-column">
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                 <div class="app-branding">
-                    <a class="app-logo" href="index.html"><img class="logo-icon me-2" src="~/images/iconRiskManagement.png" alt="logo"><span class="logo-text">Risk Management</span></a>
+                    <a class="app-logo" asp-controller="DivisionMember" asp-action="Index"><img class="logo-icon me-2" src="~/images/iconRiskManagement.png" alt="logo"><span class="logo-text">Risk Management</span></a>
 
                 </div><!--//app-branding-->  
 
@@ -122,61 +122,7 @@
                     <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link active" href="index.html">
-                                <span class="nav-icon">
-                                    <i class="fa-solid fa-house fa-2x mr-5" width="1em" height="1em"></i>
-                                 </span>
-                                 <span class="nav-link-text jarakNavbar">Dashboard</span>
-                            </a><!--//nav-link-->
-                        </li><!--//nav-item-->
-                        <li class="nav-item">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link " href="index.html">
-                                <span class="nav-icon">
-                                    <i class="fa-solid fa-house fa-2x mr-5" width="1em" height="1em"></i>
-                                 </span>
-                                 <span class="nav-link-text jarakNavbar">Dashboard</span>
-                            </a><!--//nav-link-->
-                        </li><!--//nav-item-->
-                        <li class="nav-item">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link " href="index.html">
-                                <span class="nav-icon">
-                                    <i class="fa-solid fa-house fa-2x mr-5" width="1em" height="1em"></i>
-                                 </span>
-                                 <span class="nav-link-text jarakNavbar">Dashboard</span>
-                            </a><!--//nav-link-->
-                        </li><!--//nav-item-->
-                        <li class="nav-item">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link " href="index.html">
-                                <span class="nav-icon">
-                                    <i class="fa-solid fa-house fa-2x mr-5" width="1em" height="1em"></i>
-                                 </span>
-                                 <span class="nav-link-text jarakNavbar">Dashboard</span>
-                            </a><!--//nav-link-->
-                        </li><!--//nav-item-->
-                        <li class="nav-item">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link " href="index.html">
-                                <span class="nav-icon">
-                                    <i class="fa-solid fa-house fa-2x mr-5" width="1em" height="1em"></i>
-                                 </span>
-                                 <span class="nav-link-text jarakNavbar">Dashboard</span>
-                            </a><!--//nav-link-->
-                        </li><!--//nav-item-->
-                        <li class="nav-item">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link " href="index.html">
-                                <span class="nav-icon">
-                                    <i class="fa-solid fa-house fa-2x mr-5" width="1em" height="1em"></i>
-                                 </span>
-                                 <span class="nav-link-text jarakNavbar">Dashboard</span>
-                            </a><!--//nav-link-->
-                        </li><!--//nav-item-->
-                        <li class="nav-item">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link " href="index.html">
+                            <a class="nav-link @(ViewBag.DivisionMember == true ? "active" : "")" asp-controller="DivisionMember" asp-action="Index">
                                 <span class="nav-icon">
                                     <i class="fa-solid fa-house fa-2x mr-5" width="1em" height="1em"></i>
                                  </span>

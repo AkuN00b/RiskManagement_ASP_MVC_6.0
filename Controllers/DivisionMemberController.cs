@@ -8,6 +8,9 @@ namespace RiskManagementScratch.Controllers
         {
             ViewBag.Username = HttpContext.Session.GetString("username");
 			ViewBag.Role = HttpContext.Session.GetString("role");
+			ViewBag.namaDivisi = HttpContext.Session.GetString("namaDivisi");
+
+            ViewBag.DivisionMember = true;
 
             if (ViewBag.Username != null && ViewBag.Role != null)
             {
@@ -21,7 +24,6 @@ namespace RiskManagementScratch.Controllers
 				}
 			} else
             {
-
 				return RedirectToAction("Index", "Home");
 			}
         }

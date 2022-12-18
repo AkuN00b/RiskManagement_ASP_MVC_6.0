@@ -120,6 +120,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlSaXNpa29cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/RegistrasiRisiko/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cmFzaVJpc2lrb1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Belajar C\# asp.NET/MVC/RiskManagementScratch/Views/RiskManager/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmlza01hbmFnZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

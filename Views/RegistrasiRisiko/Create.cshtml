@@ -45,21 +45,21 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Strategi Kunci</label>
-                            <select name="Id_Strategi_Kunci" class="form-select" asp-items="ViewBag.StrategiKuncis"></select>
+                            <select name="Id_Strategi_Kunci" id="strategi_kunci" class="form-select" asp-items="ViewBag.StrategiKuncis"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Aksi Utama</label>
-                            <select name="Id_Aksi_Utama" class="form-select" asp-items="ViewBag.AksiUtamas"></select>
+                            <select name="Id_Aksi_Utama" id="aksi_utama" class="form-select"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Aksi Kunci</label>
-                            <select name="Id_Aksi_Kunci" asp-for="RR.Id_Aksi_Kunci" class="form-select" asp-items="ViewBag.AksiKuncis"></select>
+                            <select id="aksi_kunci" asp-for="RR.Id_Aksi_Kunci" class="form-select"></select>
                         </div>
                     </div>
                     <hr />
@@ -70,14 +70,14 @@
                     <div class="col-md-8">
                         <div class="mb-3">
                             <label for="" class="form-label">Dampak Risiko</label>
-                            <textarea name="Dampak_Risiko" class="form-control"></textarea>
+                            <textarea asp-for="RR.Dampak_Risiko" class="form-control"></textarea>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Kategori Risiko</label>
-                            <select name="Id_Kategori_Risiko" class="form-select" asp-items="ViewBag.KategoriRisikos"></select>
+                            <select class="form-select" asp-for="RR.Id_Kategori_Risiko" asp-items="ViewBag.KategoriRisikos"></select>
                         </div>
                     </div>
                     <hr />
@@ -88,23 +88,25 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Dampak</label>
-                            <select name="Id_Dampak_Risiko_Awal" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
+                            <select asp-for="RR.Id_Dampak_Risiko_Awal" id="idDampakRisikoAwal" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Frekuensi</label>
-                            <select name="Id_Frekuensi_Risiko_Awal" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
+                            <select asp-for="RR.Id_Frekuensi_Risiko_Awal" id="idFrekuensiRisikoAwal" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Rata - Rata</label>
-                            <input type="hidden" asp-for="RR.Rata_Rata_Risiko_Awal" />
-                            <div class="progress" style="height: 31px; margin-top: 3px; border: 1px solid #ced4da;">
-                              <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 93%"></div>
+                            <input type="hidden" id="valDampakRisikoAwal" />
+                            <input type="hidden" id="valFrekuensiRisikoAwal" />
+                            <input type="hidden" id="valAverageRisikoAwal" asp-for="RR.Rata_Rata_Risiko_Awal" />
+                            <div class="progress" style="height: 34px; margin-top: 2px; border: 1px solid #ced4da;">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" id="progressBarRisikoAwal"></div>
                             </div>
                         </div>
                     </div>
@@ -124,35 +126,35 @@
                     <div class="col-md-2">
                         <div class="mb-3">
                             <label for="" class="form-label">Kategori</label>
-                            <select name="Id_Kategori_Detail_Risiko" class="form-select" asp-items="ViewBag.KategoriDetailRisikos"></select>
+                            <select asp-for="DPR.Id_Kategori_Detail_Risiko" class="form-select" asp-items="ViewBag.KategoriDetailRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Deskripsi</label>
-                            <textarea name="Deskripsi" class="form-control"></textarea>
+                            <textarea asp-for="DPR.Deskripsi" class="form-control"></textarea>
                         </div>
                     </div>
 
                     <div class="col-md-1">
                         <div class="mb-3">
                             <label for="" class="form-label">Probabilitas</label>
-                            <input type="number" class="form-control" />
+                            <input type="number" asp-for="DPR.Probabilitas" class="form-control" />
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="" class="form-label">Control</label>
-                            <textarea name="Control" class="form-control"></textarea>
+                            <textarea asp-for="DPR.Control" class="form-control"></textarea>
                         </div>
                     </div>
 
                     <div class="col-md-2">
                         <div class="mb-3">
                             <label for="" class="form-label">Divisi</label>
-                            <select name="Id_Divisi" class="form-select" asp-items="ViewBag.Divisis"></select>
+                            <select asp-for="DPR.Id_Divisi" class="form-select" asp-items="ViewBag.Divisis"></select>
                         </div>
                     </div>
                     <hr />
@@ -163,21 +165,21 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Dampak</label>
-                            <select name="Id_Dampak_Sisa_Risiko" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
+                            <select asp-for="RR.Id_Dampak_Sisa_Risiko" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Frekuensi</label>
-                            <select name="Id_Frekuensi_Sisa_Risiko" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
+                            <select asp-for="RR.Id_Frekuensi_Sisa_Risiko" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Rata - Rata</label>
-                            <input type="hidden" asp-for="RR.Rata_Rata_Sisa_Risiko" />
+                            <input type="hidden" value="6" asp-for="RR.Rata_Rata_Sisa_Risiko" />
                             <div class="progress" style="height: 31px; margin-top: 3px; border: 1px solid #ced4da;">
                               <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 93%"></div>
                             </div>
@@ -191,7 +193,7 @@
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label for="" class="form-label">Rencana Pemeliharaan</label>
-                            <textarea name="Rencana_Pemeliharaan" class="form-control"></textarea>
+                            <textarea asp-for="RR.Rencana_Pemeliharaan" class="form-control"></textarea>
                         </div>
                     </div>
                     <hr />
@@ -202,21 +204,21 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Dampak</label>
-                            <select name="Id_Dampak_Harapan_Risiko" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
+                            <select asp-for="RR.Id_Dampak_Harapan_Risiko" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Frekuensi</label>
-                            <select name="Id_Frekuensi_Harapan_Risiko" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
+                            <select asp-for="RR.Id_Frekuensi_Harapan_Risiko" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Rata - Rata</label>
-                            <input type="hidden" asp-for="RR.Rata_Rata_Harapan_Risiko" />
+                            <input type="hidden" value="3" asp-for="RR.Rata_Rata_Harapan_Risiko" />
                             <div class="progress" style="height: 31px; margin-top: 3px; border: 1px solid #ced4da;">
                               <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 93%"></div>
                             </div>
@@ -237,7 +239,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control" />
+                            <input type="date" asp-for="RR.Tanggal_Pembuatan" class="form-control" />
                         </div>
                     </div>
                     <hr />
@@ -250,3 +252,104 @@
         </div>
     </div>
 </div>
+
+<script>
+    const sk = document.getElementById('strategi_kunci');
+    const au = document.getElementById('aksi_utama');
+
+    const a1 = document.getElementById('idDampakRisikoAwal');
+    const b1 = document.getElementById('idFrekuensiRisikoAwal');
+    const c1 = document.getElementById('progressBarRisikoAwal');
+
+    const d1 = document.getElementById('valDampakRisikoAwal');
+    const e1 = document.getElementById('valFrekuensiRisikoAwal');
+    const f1 = document.getElementById('valAverageRisikoAwal');
+
+    document.getElementById('aksi_utama').disabled = true;
+    document.getElementById('aksi_kunci').disabled = true;
+
+    sk.addEventListener('change', function handleChange(event) {
+        console.log(event.target.value);
+        if (event.target.value != null && event.target.value != '' && event.target.value != '-- Pilih Strategi Kunci --') {
+            $.getJSON('@Url.Action("GetAksiUtamas")', { idSK : event.target.value }, function(aksiutamas) {
+                console.log(aksiutamas);
+                if (aksiutamas != null && !jQuery.isEmptyObject(aksiutamas)) {
+                    document.getElementById('aksi_utama').disabled = false;
+                    $("#aksi_utama").empty();
+
+                    document.getElementById('aksi_kunci').disabled = true;
+                    $("#aksi_kunci").empty();
+
+                    $("#aksi_utama").append('<option>-- Pilih Aksi Utama --</option>');
+
+                    $.each(aksiutamas, function (index, aksiutama) {
+                        $("#aksi_utama").append('<option value=' + aksiutama.value + '>' + aksiutama.text + '</option>');
+                    });                    
+                }
+            });
+        } else {
+            $("#aksi_utama").empty();
+            document.getElementById('aksi_utama').disabled = true;
+            $("#aksi_kunci").empty();
+            document.getElementById('aksi_kunci').disabled = true;
+        }
+    });
+
+    au.addEventListener('change', function handleChange(event) {
+        console.log(event.target.value);
+        if (event.target.value != null && event.target.value != '' && event.target.value != '-- Pilih Aksi Utama --') {
+            $.getJSON('@Url.Action("GetAksiKuncis")', { idAU : event.target.value }, function(aksikuncis) {
+                console.log(aksikuncis);
+                if (aksikuncis != null && !jQuery.isEmptyObject(aksikuncis)) {
+                    document.getElementById('aksi_kunci').disabled = false;
+                    $("#aksi_kunci").empty();
+
+                    $("#aksi_kunci").append('<option>-- Pilih Aksi Kunci --</option>');
+
+                    $.each(aksikuncis, function (index, aksikunci) {
+                        $("#aksi_kunci").append('<option value=' + aksikunci.value + '>' + aksikunci.text + '</option>');
+                    });                    
+                }
+            });
+        } else {
+            $("#aksi_kunci").empty();
+            document.getElementById('aksi_kunci').disabled = true;
+        }
+    });
+
+    a1.addEventListener('change', function handleChange(event) {
+        console.log(event.target.value);
+        if (event.target.value != null && event.target.value != '' && event.target.value != '-- Pilih Dampak Risiko --') {
+            $.getJSON('@Url.Action("GetValueDampakRisiko")', { idDR : event.target.value }, function(aksikuncis) {
+                console.log(aksikuncis);
+                f1.value = null;
+
+                d1.value = (((aksikuncis) / 10) / 2);
+                f1.value = (parseFloat(d1.value) + parseFloat(e1.value));
+                c1.style.width = ((f1.value) * 10) + "%";
+            });
+        } else if (event.target.value == '-- Pilih Dampak Risiko --') {
+            c1.style.width = "0%";
+            d1.value = null;
+            f1.value = null;
+        }
+    });
+
+    b1.addEventListener('change', function handleChange(event) {
+        console.log(event.target.value);
+        if (event.target.value != null && event.target.value != '' && event.target.value != '-- Pilih Frekuensi Risiko --') {
+            $.getJSON('@Url.Action("GetValueFrekuensiRisiko")', { idFR : event.target.value }, function(aksikuncis) {
+                console.log(aksikuncis);
+                f1.value = null;
+
+                e1.value = (((aksikuncis) / 10) / 2);
+                f1.value = (parseFloat(d1.value) + parseFloat(e1.value));
+                c1.style.width = ((f1.value) * 10) + "%";
+            });
+        } else if (event.target.value == '-- Pilih Frekuensi Risiko --') {
+            c1.style.width = "0%";
+            e1.value = null;
+            f1.value = null;
+        }
+    });
+</script>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RiskManagementScratch.Models
@@ -6,7 +7,7 @@ namespace RiskManagementScratch.Models
     public class RegistrasiRisiko
     {
         [Key]
-        public int Id_Risk_Regist { get; set; }
+        public Guid Id_Risk_Regist { get; set; }
         [ForeignKey("Divisi")]
         public int Id_Divisi { get; set; }
         public Divisi? Divisi { get; set; }

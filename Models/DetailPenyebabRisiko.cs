@@ -8,7 +8,7 @@ namespace RiskManagementScratch.Models
     public class DetailPenyebabRisiko
     {
         [ForeignKey("RegistrasiRisiko")]
-        public int Id_Risk_Regist { get; set; }
+        public Guid Id_Risk_Regist { get; set; }
         public RegistrasiRisiko? RegistrasiRisiko { get; set; }
         [ForeignKey("KategoriDetailRisiko")]
         public int Id_Kategori_Detail_Risiko { get; set; }

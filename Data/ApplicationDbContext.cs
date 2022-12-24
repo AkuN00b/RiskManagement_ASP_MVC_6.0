@@ -22,5 +22,6 @@ namespace RiskManagementScratch.Data
         public DbSet<AksiKunci> AksiKuncis { get; set; }
         public DbSet<DetailPenyebabRisiko> DetailPenyebabRisikos { get; set; }
         public DbSet<RegistrasiRisiko> RegistrasiRisikos { get; set; }
+        public DbSet<RegistrasiDanDetailRisiko> RegistrasiDanDetailRisikos { get; set; }
     }
 }

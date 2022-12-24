@@ -18,6 +18,8 @@ namespace RiskManagementScratch.Controllers
             _applicationDbContext = applicationDbContext;
         }
 
+        RegistrasiRisikoAccessLayer rral = new RegistrasiRisikoAccessLayer();
+
         private List<SelectListItem> GetStrategiKuncis()
         {
             List<SelectListItem> listStrategiKuncis = new List<SelectListItem>();
@@ -31,7 +33,8 @@ namespace RiskManagementScratch.Controllers
 
             var defItem = new SelectListItem()
             {
-                Text = "-- Pilih Strategi Kunci --"
+                Text = "-- Pilih Strategi Kunci --",
+                Value = null
             };
 
             listStrategiKuncis.Insert(0, defItem);
@@ -39,46 +42,48 @@ namespace RiskManagementScratch.Controllers
             return listStrategiKuncis;
         }
 
-        private List<SelectListItem> GetAksiUtamas()
+        [HttpGet]
+        public JsonResult GetAksiUtamas(string idSK)
         {
-            List<SelectListItem> listAksiUtamas = new List<SelectListItem>();
-            var aksiUtamas = _applicationDbContext.AksiUtamas.Select(AksiUtama => AksiUtama);
-
-            listAksiUtamas = aksiUtamas.Select(au => new SelectListItem()
+            if (!string.IsNullOrWhiteSpace(idSK) && idSK.Length > 0)
             {
-                Value = au.Id_Aksi_Utama.ToString(),
-                Text = au.Nama_Aksi_Utama.ToString()
-            }).ToList();
+                List<SelectListItem> listAksiUtamas = new List<SelectListItem>();
+                var aksiUtamas = _applicationDbContext.AksiUtamas.Select(AksiUtama => AksiUtama);
 
-            var defItem = new SelectListItem()
-            {
-                Text = "-- Pilih Aksi Utama --"
-            };
+                listAksiUtamas = aksiUtamas
+                .Where(c => c.Id_Strategi_Kunci.ToString() == idSK)
+                .Select(au => new SelectListItem()
+                {
+                    Value = au.Id_Aksi_Utama.ToString(),
+                    Text = au.Nama_Aksi_Utama.ToString()
+                }).ToList();
 
-            listAksiUtamas.Insert(0, defItem);
+                return Json(listAksiUtamas);
+            }
 
-            return listAksiUtamas;
+            return null;
         }
 
-        private List<SelectListItem> GetAksiKuncis()
+        [HttpGet]
+        public JsonResult GetAksiKuncis(string idAU)
         {
-            List<SelectListItem> listAksiKuncis = new List<SelectListItem>();
-            var aksiKuncis = _applicationDbContext.AksiKuncis.Select(AksiKunci => AksiKunci);
-
-            listAksiKuncis = aksiKuncis.Select(ak => new SelectListItem()
+            if (!string.IsNullOrWhiteSpace(idAU) && idAU.Length > 0)
             {
-                Value = ak.Id_Aksi_Kunci.ToString(),
-                Text = ak.Nama_Aksi_Kunci.ToString()
-            }).ToList();
+                List<SelectListItem> listAksiKuncis = new List<SelectListItem>();
+                var aksiKuncis = _applicationDbContext.AksiKuncis.Select(AksiKunci => AksiKunci);
 
-            var defItem = new SelectListItem()
-            {
-                Text = "-- Pilih Aksi Kunci --"
-            };
+                listAksiKuncis = aksiKuncis
+                .Where(c => c.Id_Aksi_Utama.ToString() == idAU)
+                .Select(ak => new SelectListItem()
+                {
+                    Value = ak.Id_Aksi_Kunci.ToString(),
+                    Text = ak.Nama_Aksi_Kunci.ToString()
+                }).ToList();
 
-            listAksiKuncis.Insert(0, defItem);
+                return Json(listAksiKuncis);
+            }
 
-            return listAksiKuncis;
+            return null;
         }
 
         private List<SelectListItem> GetKategoriRisikos()
@@ -203,8 +208,6 @@ namespace RiskManagementScratch.Controllers
                 if (ViewBag.Role == "Division Member")
                 {
                     ViewBag.StrategiKuncis = GetStrategiKuncis();
-                    ViewBag.AksiUtamas = GetAksiUtamas();
-                    ViewBag.AksiKuncis = GetAksiKuncis();
 
                     ViewBag.KategoriRisikos = GetKategoriRisikos();
 
@@ -226,5 +229,87 @@ namespace RiskManagementScratch.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-	}
+
+        [HttpPost]
+        public IActionResult Create(RegistrasiDanDetailRisiko registrasiDanDetailRisiko)
+        {
+            ViewBag.Username = HttpContext.Session.GetString("username");
+            ViewBag.Role = HttpContext.Session.GetString("role");
+            ViewBag.namaDivisi = HttpContext.Session.GetString("namaDivisi");
+
+            ViewBag.IdDivisi = HttpContext.Session.GetString("idDivisi");
+            ViewBag.IdAktor = HttpContext.Session.GetString("idAktor");
+
+            ViewBag.DivisionMember = true;
+
+            if (ViewBag.Username != null && ViewBag.Role != null)
+            {
+                if (ViewBag.Role == "Division Member")
+                {
+                    if (ModelState.IsValid)
+                    {
+                        string resp = rral.AddRRrecord(registrasiDanDetailRisiko);
+                        TempData["Notifikasi"] = resp;
+                        return RedirectToAction("Index", "RiskManager");
+                    }
+
+                    ViewBag.StrategiKuncis = GetStrategiKuncis();
+
+                    ViewBag.KategoriRisikos = GetKategoriRisikos();
+
+                    ViewBag.DampakRisikos = GetDampakRisikos();
+                    ViewBag.FrekuensiRisikos = GetFrekuensiRisikos();
+
+                    ViewBag.KategoriDetailRisikos = GetKategoriDetailRisikos();
+                    ViewBag.Divisis = GetDivisis();
+
+                    TempData["Notifikasi"] = "Registrasi Risiko Gagal Didaftarkan !!";
+
+                    return View(registrasiDanDetailRisiko);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "RiskManager");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetValueDampakRisiko(string idDR)
+        {
+            if (!string.IsNullOrWhiteSpace(idDR) && idDR.Length > 0)
+            {
+                var dampakRisikos = _applicationDbContext.DampakRisikos.Select(DampakRisiko => DampakRisiko);
+
+                var value = dampakRisikos
+                .Where(c => c.Id_Dampak_Risiko.ToString() == idDR)
+                .Select(ak => ak.Nilai_Dampak_Risiko).ToList();
+
+                return Json(value);
+            }
+
+            return null;
+        }
+
+        [HttpGet]
+        public JsonResult GetValueFrekuensiRisiko(string idFR)
+        {
+            if (!string.IsNullOrWhiteSpace(idFR) && idFR.Length > 0)
+            {
+                var frekuensiRisikos = _applicationDbContext.FrekuensiRisikos.Select(FrekuensiRisiko => FrekuensiRisiko);
+
+                var value = frekuensiRisikos
+                .Where(c => c.Id_Frekuensi_Risiko.ToString() == idFR)
+                .Select(ak => ak.Nilai_Frekuensi_Risiko).ToList();
+
+                return Json(value);
+            }
+
+            return null;
+        }
+    }
 }

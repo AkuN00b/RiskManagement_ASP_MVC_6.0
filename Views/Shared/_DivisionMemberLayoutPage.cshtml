@@ -187,5 +187,14 @@
     <!-- Page Specific JS -->
     <script src="~/js/app.js"></script> 
 
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+    @if (TempData["Notifikasi"] != null)
+    {
+        <script type="text/javascript">
+            alert("@TempData["Notifikasi"]");
+        </script>
+    }
+
 </body>
 </html> 

@@ -114,16 +114,51 @@
                 </div>
 
                 <div class="row mb-3">
-                    <h5>
-                        Penyebab Risiko
+                    <h5>Penyebab Risiko</h5>
 
-                        <span class="float-end">
-                            <a class="btn btn-success text-white"><i class="fa-solid fa-plus"></i> Tambah Baris</a>
-                            <a class="btn btn-danger text-white"><i class="fa-solid fa-minus"></i> Hapus Baris</a>
-                        </span>
-                    </h5>
+                    <table id="DPRTable" class="table" style="margin-left: 5px;">
+                        <thead>
+                            <tr>
+                                <th width="15%">Kategori Risiko</th>
+                                <th width="20%">Deskripsi</th>
+                                <th width="12%">Probabilitas (%)</th>
+                                <th width="20%">Control</th>
+                                <th width="15%">Divisi</th>
+                                <th>Opsi</th>
+                            </tr>
+                        </thead>
 
-                    <div class="col-md-2">
+                        <tbody>
+                            @*@foreach (var item in Model.DetailPenyebabRisikos)*@
+                            @for (int i = 0; i < Model.DetailPenyebabRisikos.Count; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @*@Html.EditorFor(x => x.DetailPenyebabRisikos[i].Id_Kategori_Detail_Risiko, new { htmlAttributes = new { @class = "form-select", @value = "ViewBag.KategoriDetailRisikos" } })*@
+                                        <select asp-for="DetailPenyebabRisikos[i].Id_Kategori_Detail_Risiko" class="form-select" asp-items="ViewBag.KategoriDetailRisikos"></select>
+                                    </td>
+                                    <td>
+                                        <textarea asp-for="DetailPenyebabRisikos[i].Deskripsi" class="form-control"></textarea>
+                                    </td>
+                                    <td>
+                                        <input type="number" asp-for="DetailPenyebabRisikos[i].Probabilitas" class="form-control" value="" />
+                                    </td>
+                                    <td>
+                                        <textarea asp-for="DetailPenyebabRisikos[i].Control" class="form-control"></textarea>
+                                    </td>
+                                    <td>
+                                        <select asp-for="DetailPenyebabRisikos[i].Id_Divisi" class="form-select" asp-items="ViewBag.Divisis"></select>
+                                    </td>
+
+                                    <td>
+                                        <button id="btnAdd-@i" type="button" class="btn btn-xs btn-success text-white visible" onclick="AddItem(this)">Tambah</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    @*<div class="col-md-2">
                         <div class="mb-3">
                             <label for="" class="form-label">Kategori</label>
                             <select asp-for="DPR.Id_Kategori_Detail_Risiko" class="form-select" asp-items="ViewBag.KategoriDetailRisikos"></select>
@@ -156,8 +191,10 @@
                             <label for="" class="form-label">Divisi</label>
                             <select asp-for="DPR.Id_Divisi" class="form-select" asp-items="ViewBag.Divisis"></select>
                         </div>
-                    </div>
+                    </div>*@
                     <hr />
+
+                    <input type="hidden" id="hdnLastIndex" value="0" />
                 </div>
 
                 <div class="row mb-3">
@@ -165,23 +202,25 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Dampak</label>
-                            <select asp-for="RR.Id_Dampak_Sisa_Risiko" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
+                            <select asp-for="RR.Id_Dampak_Sisa_Risiko" id="idDampakSisaRisiko" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Frekuensi</label>
-                            <select asp-for="RR.Id_Frekuensi_Sisa_Risiko" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
+                            <select asp-for="RR.Id_Frekuensi_Sisa_Risiko" id="idFrekuensiSisaRisiko" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Rata - Rata</label>
-                            <input type="hidden" value="6" asp-for="RR.Rata_Rata_Sisa_Risiko" />
-                            <div class="progress" style="height: 31px; margin-top: 3px; border: 1px solid #ced4da;">
-                              <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 93%"></div>
+                            <input type="hidden" id="valDampakSisaRisiko" />
+                            <input type="hidden" id="valFrekuensiSisaRisiko" />
+                            <input type="hidden" id="valAverageSisaRisiko" asp-for="RR.Rata_Rata_Sisa_Risiko" />
+                            <div class="progress" style="height: 34px; margin-top: 2px; border: 1px solid #ced4da;">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" id="progressBarSisaRisiko"></div>
                             </div>
                         </div>
                     </div>
@@ -204,23 +243,25 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Dampak</label>
-                            <select asp-for="RR.Id_Dampak_Harapan_Risiko" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
+                            <select asp-for="RR.Id_Dampak_Harapan_Risiko" id="idDampakHarapanRisiko" class="form-select" asp-items="ViewBag.DampakRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Frekuensi</label>
-                            <select asp-for="RR.Id_Frekuensi_Harapan_Risiko" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
+                            <select asp-for="RR.Id_Frekuensi_Harapan_Risiko" id="idFrekuensiHarapanRisiko" class="form-select" asp-items="ViewBag.FrekuensiRisikos"></select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="" class="form-label">Rata - Rata</label>
-                            <input type="hidden" value="3" asp-for="RR.Rata_Rata_Harapan_Risiko" />
-                            <div class="progress" style="height: 31px; margin-top: 3px; border: 1px solid #ced4da;">
-                              <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 93%"></div>
+                            <input type="hidden" id="valDampakHarapanRisiko" />
+                            <input type="hidden" id="valFrekuensiHarapanRisiko" />
+                            <input type="hidden" id="valAverageHarapanRisiko" asp-for="RR.Rata_Rata_Harapan_Risiko" />
+                            <div class="progress" style="height: 34px; margin-top: 2px; border: 1px solid #ced4da;">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" id="progressBarHarapanRisiko"></div>
                             </div>
                         </div>
                     </div>
@@ -257,6 +298,7 @@
     const sk = document.getElementById('strategi_kunci');
     const au = document.getElementById('aksi_utama');
 
+
     const a1 = document.getElementById('idDampakRisikoAwal');
     const b1 = document.getElementById('idFrekuensiRisikoAwal');
     const c1 = document.getElementById('progressBarRisikoAwal');
@@ -264,6 +306,24 @@
     const d1 = document.getElementById('valDampakRisikoAwal');
     const e1 = document.getElementById('valFrekuensiRisikoAwal');
     const f1 = document.getElementById('valAverageRisikoAwal');
+
+
+    const a2 = document.getElementById('idDampakSisaRisiko');
+    const b2 = document.getElementById('idFrekuensiSisaRisiko');
+    const c2 = document.getElementById('progressBarSisaRisiko');
+
+    const d2 = document.getElementById('valDampakSisaRisiko');
+    const e2 = document.getElementById('valFrekuensiSisaRisiko');
+    const f2 = document.getElementById('valAverageSisaRisiko');
+
+
+    const a3 = document.getElementById('idDampakHarapanRisiko');
+    const b3 = document.getElementById('idFrekuensiHarapanRisiko');
+    const c3 = document.getElementById('progressBarHarapanRisiko');
+
+    const d3 = document.getElementById('valDampakHarapanRisiko');
+    const e3 = document.getElementById('valFrekuensiHarapanRisiko');
+    const f3 = document.getElementById('valAverageHarapanRisiko');
 
     document.getElementById('aksi_utama').disabled = true;
     document.getElementById('aksi_kunci').disabled = true;
@@ -327,6 +387,20 @@
                 d1.value = (((aksikuncis) / 10) / 2);
                 f1.value = (parseFloat(d1.value) + parseFloat(e1.value));
                 c1.style.width = ((f1.value) * 10) + "%";
+
+                console.log(f1.value * 10);
+
+                if ((f1.value * 10) <= 20) {
+                    c1.style.backgroundColor = "#17cd00";
+                } else if ((f1.value * 10) <= 40) {
+                    c1.style.backgroundColor = "#72cc00";
+                } else if ((f1.value * 10) <= 60) {
+                    c1.style.backgroundColor = "#cbcc00";
+                } else if ((f1.value * 10) <= 80) {
+                    c1.style.backgroundColor = "#cc7700";
+                } else if ((f1.value * 10) <= 100) {
+                    c1.style.backgroundColor = "#cc0000";
+                }
             });
         } else if (event.target.value == '-- Pilih Dampak Risiko --') {
             c1.style.width = "0%";
@@ -345,6 +419,20 @@
                 e1.value = (((aksikuncis) / 10) / 2);
                 f1.value = (parseFloat(d1.value) + parseFloat(e1.value));
                 c1.style.width = ((f1.value) * 10) + "%";
+
+                console.log(f1.value * 10);
+
+                if ((f1.value * 10) <= 20) {
+                    c1.style.backgroundColor = "#17cd00";
+                } else if ((f1.value * 10) <= 40) {
+                    c1.style.backgroundColor = "#72cc00";
+                } else if ((f1.value * 10) <= 60) {
+                    c1.style.backgroundColor = "#cbcc00";
+                } else if ((f1.value * 10) <= 80) {
+                    c1.style.backgroundColor = "#cc7700";
+                } else if ((f1.value * 10) <= 100) {
+                    c1.style.backgroundColor = "#cc0000";
+                }
             });
         } else if (event.target.value == '-- Pilih Frekuensi Risiko --') {
             c1.style.width = "0%";
@@ -352,4 +440,156 @@
             f1.value = null;
         }
     });
+
+    a2.addEventListener('change', function handleChange(event) {
+        console.log(event.target.value);
+        if (event.target.value != null && event.target.value != '' && event.target.value != '-- Pilih Dampak Risiko --') {
+            $.getJSON('@Url.Action("GetValueDampakRisiko")', { idDR : event.target.value }, function(aksikuncis) {
+                console.log(aksikuncis);
+                f2.value = null;
+
+                d2.value = (((aksikuncis) / 10) / 2);
+                f2.value = (parseFloat(d2.value) + parseFloat(e2.value));
+                c2.style.width = ((f2.value) * 10) + "%";
+
+                console.log(f2.value * 10);
+
+                if ((f2.value * 10) <= 20) {
+                    c2.style.backgroundColor = "#17cd00";
+                } else if ((f2.value * 10) <= 40) {
+                    c2.style.backgroundColor = "#72cc00";
+                } else if ((f2.value * 10) <= 60) {
+                    c2.style.backgroundColor = "#cbcc00";
+                } else if ((f2.value * 10) <= 80) {
+                    c2.style.backgroundColor = "#cc7700";
+                } else if ((f2.value * 10) <= 100) {
+                    c2.style.backgroundColor = "#cc0000";
+                }
+            });
+        } else if (event.target.value == '-- Pilih Dampak Risiko --') {
+            c2.style.width = "0%";
+            d2.value = null;
+            f2.value = null;
+        }
+    });
+
+    b2.addEventListener('change', function handleChange(event) {
+        console.log(event.target.value);
+        if (event.target.value != null && event.target.value != '' && event.target.value != '-- Pilih Frekuensi Risiko --') {
+            $.getJSON('@Url.Action("GetValueFrekuensiRisiko")', { idFR : event.target.value }, function(aksikuncis) {
+                console.log(aksikuncis);
+                f2.value = null;
+
+                e2.value = (((aksikuncis) / 10) / 2);
+                f2.value = (parseFloat(d2.value) + parseFloat(e2.value));
+                c2.style.width = ((f2.value) * 10) + "%";
+
+                console.log(f2.value * 10);
+
+                if ((f2.value * 10) <= 20) {
+                    c2.style.backgroundColor = "#17cd00";
+                } else if ((f2.value * 10) <= 40) {
+                    c2.style.backgroundColor = "#72cc00";
+                } else if ((f2.value * 10) <= 60) {
+                    c2.style.backgroundColor = "#cbcc00";
+                } else if ((f2.value * 10) <= 80) {
+                    c2.style.backgroundColor = "#cc7700";
+                } else if ((f2.value * 10) <= 100) {
+                    c2.style.backgroundColor = "#cc0000";
+                }
+            });
+        } else if (event.target.value == '-- Pilih Frekuensi Risiko --') {
+            c2.style.width = "0%";
+            e2.value = null;
+            f2.value = null;
+        }
+    });
+
+    a3.addEventListener('change', function handleChange(event) {
+        console.log(event.target.value);
+        if (event.target.value != null && event.target.value != '' && event.target.value != '-- Pilih Dampak Risiko --') {
+            $.getJSON('@Url.Action("GetValueDampakRisiko")', { idDR : event.target.value }, function(aksikuncis) {
+                console.log(aksikuncis);
+                f3.value = null;
+
+                d3.value = (((aksikuncis) / 10) / 2);
+                f3.value = (parseFloat(d3.value) + parseFloat(e3.value));
+                c3.style.width = ((f3.value) * 10) + "%";
+
+                console.log(f3.value * 10);
+
+                if ((f3.value * 10) <= 20) {
+                    c3.style.backgroundColor = "#17cd00";
+                } else if ((f3.value * 10) <= 40) {
+                    c3.style.backgroundColor = "#72cc00";
+                } else if ((f3.value * 10) <= 60) {
+                    c3.style.backgroundColor = "#cbcc00";
+                } else if ((f3.value * 10) <= 80) {
+                    c3.style.backgroundColor = "#cc7700";
+                } else if ((f3.value * 10) <= 100) {
+                    c3.style.backgroundColor = "#cc0000";
+                }
+            });
+        } else if (event.target.value == '-- Pilih Dampak Risiko --') {
+            c3.style.width = "0%";
+            d3.value = null;
+            f3.value = null;
+        }
+    });
+
+    b3.addEventListener('change', function handleChange(event) {
+        console.log(event.target.value);
+        if (event.target.value != null && event.target.value != '' && event.target.value != '-- Pilih Frekuensi Risiko --') {
+            $.getJSON('@Url.Action("GetValueFrekuensiRisiko")', { idFR : event.target.value }, function(aksikuncis) {
+                console.log(aksikuncis);
+                f3.value = null;
+
+                e3.value = (((aksikuncis) / 10) / 2);
+                f3.value = (parseFloat(d3.value) + parseFloat(e3.value));
+                c3.style.width = ((f3.value) * 10) + "%";
+
+                console.log(f3.value * 10);
+
+                if ((f3.value * 10) <= 20) {
+                    c3.style.backgroundColor = "#17cd00";
+                } else if ((f3.value * 10) <= 40) {
+                    c3.style.backgroundColor = "#72cc00";
+                } else if ((f3.value * 10) <= 60) {
+                    c3.style.backgroundColor = "#cbcc00";
+                } else if ((f3.value * 10) <= 80) {
+                    c3.style.backgroundColor = "#cc7700";
+                } else if ((f3.value * 10) <= 100) {
+                    c3.style.backgroundColor = "#cc0000";
+                }
+            });
+        } else if (event.target.value == '-- Pilih Frekuensi Risiko --') {
+            c3.style.width = "0%";
+            e3.value = null;
+            f3.value = null;
+        }
+    });
+
+    function AddItem(btn) {
+        var table = document.getElementById('DPRTable');
+        var rows = table.getElementsByTagName('tr');
+
+        var rowOuterHtml = rows[rows.length - 1].outerHTML;
+
+        var lastRowIdx = document.getElementById('hdnLastIndex').value;
+        var nextRowIdx = eval(lastRowIdx) + 1;
+        document.getElementById('hdnLastIndex').value = nextRowIdx;
+
+        rowOuterHtml = rowOuterHtml.replaceAll('_' + lastRowIdx + '_', '_' + nextRowIdx + '_');
+        rowOuterHtml = rowOuterHtml.replaceAll('[' + lastRowIdx + ']', '[' + nextRowIdx + ']');
+        rowOuterHtml = rowOuterHtml.replaceAll('-' + lastRowIdx, '-' + nextRowIdx);
+
+        var newRow = table.insertRow();
+        newRow.innerHTML = rowOuterHtml;
+
+        var btnAddId = btn.id;
+
+        var addBtn = document.getElementById(btnAddId);
+        addBtn.classList.remove("visible");
+        addBtn.classList.add("invisible");
+    }
 </script>

@@ -12,5 +12,7 @@ namespace RiskManagementScratch.Models
         public RegistrasiRisiko? RR { get; set; }
         [NotMapped]
         public DetailPenyebabRisiko? DPR { get; set; }
+
+        public List<DetailPenyebabRisiko> DetailPenyebabRisikos { get; set; } = new List<DetailPenyebabRisiko>();
     }
 }

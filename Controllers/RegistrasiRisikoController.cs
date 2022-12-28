@@ -162,7 +162,7 @@ namespace RiskManagementScratch.Controllers
 
             var defItem = new SelectListItem()
             {
-                Text = "-- Pilih Frekuensi Risiko --"
+                Text = "-- Pilih Detail Risiko --"
             };
 
             listKategoriDetailRisikos.Insert(0, defItem);
@@ -217,7 +217,12 @@ namespace RiskManagementScratch.Controllers
                     ViewBag.KategoriDetailRisikos = GetKategoriDetailRisikos();
                     ViewBag.Divisis = GetDivisis();
 
-                    return View();
+                    RegistrasiDanDetailRisiko rrad = new RegistrasiDanDetailRisiko();
+                    rrad.DetailPenyebabRisikos.Add(new DetailPenyebabRisiko());
+                    //rrad.DetailPenyebabRisikos.Add(new DetailPenyebabRisiko());
+                    //rrad.DetailPenyebabRisikos.Add(new DetailPenyebabRisiko());
+
+                    return View(rrad);
                 }
                 else
                 {

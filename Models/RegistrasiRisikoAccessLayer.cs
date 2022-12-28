@@ -43,18 +43,23 @@ namespace RiskManagementScratch.Models
                 cmd.ExecuteNonQuery();
                 con.Close();
 
-                SqlCommand cmdd = new SqlCommand("sp_AddDetailPenyebabRisiko", con);
-                cmdd.CommandType = CommandType.StoredProcedure;
-                cmdd.Parameters.AddWithValue("@idRisk", a);
-                cmdd.Parameters.AddWithValue("@idKategoriDetailRisiko", registrasiDanDetailRisiko.DPR.Id_Kategori_Detail_Risiko);
-                cmdd.Parameters.AddWithValue("@deskripsi", registrasiDanDetailRisiko.DPR.Deskripsi);
-                cmdd.Parameters.AddWithValue("@probabilitas", registrasiDanDetailRisiko.DPR.Probabilitas);
-                cmdd.Parameters.AddWithValue("@control", registrasiDanDetailRisiko.DPR.Control);
-                cmdd.Parameters.AddWithValue("@idDivisi", registrasiDanDetailRisiko.DPR.Id_Divisi);
 
-                con.Open();
-                cmdd.ExecuteNonQuery();
-                con.Close();
+                for (int i = 0; i < registrasiDanDetailRisiko.DetailPenyebabRisikos.Count; i++)
+                {
+                    SqlCommand cmdd = new SqlCommand("sp_AddDetailPenyebabRisiko", con);
+                    cmdd.CommandType = CommandType.StoredProcedure;
+
+                    cmdd.Parameters.AddWithValue("@idRisk", a);
+                    cmdd.Parameters.AddWithValue("@idKategoriDetailRisiko", registrasiDanDetailRisiko.DetailPenyebabRisikos[i].Id_Kategori_Detail_Risiko);
+                    cmdd.Parameters.AddWithValue("@deskripsi", registrasiDanDetailRisiko.DetailPenyebabRisikos[i].Deskripsi);
+                    cmdd.Parameters.AddWithValue("@probabilitas", registrasiDanDetailRisiko.DetailPenyebabRisikos[i].Probabilitas);
+                    cmdd.Parameters.AddWithValue("@control", registrasiDanDetailRisiko.DetailPenyebabRisikos[i].Control);
+                    cmdd.Parameters.AddWithValue("@idDivisi", registrasiDanDetailRisiko.DetailPenyebabRisikos[i].Id_Divisi);
+
+                    con.Open();
+                    cmdd.ExecuteNonQuery();
+                    con.Close();
+                }
 
                 return ("Data save Successfully");
             }

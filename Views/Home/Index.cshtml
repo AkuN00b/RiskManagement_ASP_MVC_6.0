@@ -7,27 +7,33 @@
 <div class="app-auth-branding mb-4"></div>
 <div class="app-auth-branding mb-4"></div>
 
-<h2 class="auth-heading text-center mb-5">Risk Management Login</h2>
+<h4 class="text-center mb-5">Masuk Akun <br />Risk Management</h4>
 <div class="auth-form-container text-start">
 	@using(Html.BeginForm("Index", "Home", FormMethod.Post)) {
 		if (ViewBag.LoginStatus != null)
 		{
 			if (ViewBag.LoginStatus == 0)
 			{
-				<div class="alert alert-danger alert-dismissible fade show" role="alert">
-					Invalid Login
-				</div>
+				<script type="text/javascript">
+					window.onload = function () {
+						Swal.fire(
+							'Peringatan !',
+							'@TempData["Warning"]',
+							'error'
+						)
+					}
+				</script>
 			}
 		}
 
 		<div class="email mb-3">
-			@Html.TextBoxFor(m => m.Username, new {@class = "form-control signin-email", @placeholder = "Username", @required = "required", @style = "border: 1px solid grey;"})
+			@Html.TextBoxFor(m => m.Username, new {@class = "form-control signin-email", @placeholder = "Username", @style = "border: 1px solid grey;"})
 		</div><!--//form-group-->
 		<div class="password mb-5">
-			@Html.PasswordFor(m => m.Password, new {@class = "form-control signin-password", @placeholder = "Password", @required = "required", @style = "border: 1px solid grey;"})
+			@Html.PasswordFor(m => m.Password, new {@class = "form-control signin-password", @placeholder = "Kata Sandi", @style = "border: 1px solid grey;"})
 		</div><!--//form-group-->
 		<div class="text-center">
-			<button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto mb-3">Log In</button>
+			<button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto mb-3">Masuk</button>
 		</div>
 	}
 </div><!--//auth-form-container-->	

@@ -85,10 +85,21 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.KategoriDetailRisikos.Add(kategoriDetailRisiko);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Kategori Detail Berhasil Ditambahkan !!";
                         return RedirectToAction("Index");
                     }
 
-                    return View(kategoriDetailRisiko);
+                    if (kategoriDetailRisiko.Nama_Kategori_Detail_Risiko == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        return View(kategoriDetailRisiko);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Kategori Detail Risiko Gagal Ditambahkan !!";
+                        return View(kategoriDetailRisiko);
+                    }
                 }
             }
             else
@@ -142,10 +153,21 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.KategoriDetailRisikos.Update(kategoriDetailRisiko);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Kategori Detail Berhasil Diubah !!";
                         return RedirectToAction("Index");
                     }
 
-                    return View(kategoriDetailRisiko);
+                    if (kategoriDetailRisiko.Nama_Kategori_Detail_Risiko == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        return View(kategoriDetailRisiko);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Kategori Detail Risiko Gagal Diubah !!";
+                        return View(kategoriDetailRisiko);
+                    }
                 }
             }
             else
@@ -170,8 +192,16 @@ namespace RiskManagementScratch.Controllers
                 else
                 {
                     KategoriDetailRisiko kategoriDetailRisiko = _applicationDbContext.KategoriDetailRisikos.Find(id);
-                    _applicationDbContext.KategoriDetailRisikos.Remove(kategoriDetailRisiko);
-                    _applicationDbContext.SaveChanges();
+
+                    if (kategoriDetailRisiko != null)
+                    {
+                        TempData["IsDelete"] = "True";
+                        TempData["ID"] = id;
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Kategori Risiko Tidak Bisa Dihapus !!";
+                    }
 
                     return RedirectToAction("Index");
                 }
@@ -181,5 +211,16 @@ namespace RiskManagementScratch.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            KategoriDetailRisiko kategoriDetailRisiko = _applicationDbContext.KategoriDetailRisikos.Find(id);
+
+            _applicationDbContext.KategoriDetailRisikos.Remove(kategoriDetailRisiko);
+            _applicationDbContext.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+        
     }
 }

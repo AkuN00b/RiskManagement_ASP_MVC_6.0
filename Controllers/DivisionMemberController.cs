@@ -35,7 +35,8 @@ namespace RiskManagementScratch.Controllers
 				}
 				else
 				{
-					return RedirectToAction("Index", "RiskManager");
+                    TempData["Warning"] = "Hak Akses Dilarang !!";
+                    return RedirectToAction("Index", "RiskManager");
 				}
 			} else
             {

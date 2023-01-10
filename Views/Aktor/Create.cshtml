@@ -23,12 +23,10 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Username</label>
                     <input type="text" class="form-control" asp-for="Username">
-                    <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Password</label>
+                    <label for="" class="form-label">Kata Sandi</label>
                     <input type="password" class="form-control" asp-for="Password">
-                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">Role</label>
@@ -37,7 +35,6 @@
                         <option value="Division Member">Division Member</option>
                         <option value="Risk Manager">Risk Manager</option>
                     </select>
-                    <span asp-validation-for="Role" class="text-danger"></span>
                 </div>
 
                 <div id="namaDivisi" class="mb-3" style="display: none">
@@ -45,8 +42,18 @@
                     <select asp-for="Id_Divisi" name="Id_Divisi" class="form-select" asp-items="ViewBag.Divisis"></select>
                 </div>
 
-                <div class="d-grid gap-2 mt-4">
-                    <button type="submit" class="btn btn-success btn-block text-white"><i class="fa-regular fa-floppy-disk"></i> Submit</button>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <div class="d-grid gap-2">
+                            <input type="reset" class="btn btn-danger text-white" value="Batal" />
+                        </div>
+                    </div>
+
+                    <div class="col-8">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-block text-white"><i class="fa-regular fa-floppy-disk"></i> Tambahkan</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

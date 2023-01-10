@@ -6,8 +6,8 @@ using RiskManagementScratch.Models;
 
 namespace RiskManagementScratch.Controllers
 {
-	public class AktorController : Controller
-	{
+    public class AktorController : Controller
+    {
         private readonly ApplicationDbContext _applicationDbContext;
 
         public AktorController(ApplicationDbContext applicationDbContext)
@@ -17,7 +17,7 @@ namespace RiskManagementScratch.Controllers
 
         [HttpGet]
         public IActionResult Index()
-		{
+        {
             ViewBag.Username = HttpContext.Session.GetString("username");
             ViewBag.Role = HttpContext.Session.GetString("role");
 
@@ -64,34 +64,34 @@ namespace RiskManagementScratch.Controllers
         }
 
         [HttpGet]
-		public IActionResult Create()
-		{
-			ViewBag.Username = HttpContext.Session.GetString("username");
-			ViewBag.Role = HttpContext.Session.GetString("role");
+        public IActionResult Create()
+        {
+            ViewBag.Username = HttpContext.Session.GetString("username");
+            ViewBag.Role = HttpContext.Session.GetString("role");
 
             ViewBag.Aktor = true;
 
             if (ViewBag.Username != null && ViewBag.Role != null)
-			{
-				if (ViewBag.Role == "Division Member")
-				{
-					return RedirectToAction("Index", "DivisionMember");
-				}
-				else
-				{
+            {
+                if (ViewBag.Role == "Division Member")
+                {
+                    return RedirectToAction("Index", "DivisionMember");
+                }
+                else
+                {
                     ViewBag.Divisis = GetDivisis();
                     return View();
-				}
-			}
-			else
-			{
-				return RedirectToAction("Index", "Home");
-			}
-		}
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
-		[HttpPost]
-		public IActionResult Create(Aktor aktor)
-		{
+        [HttpPost]
+        public IActionResult Create(Aktor aktor)
+        {
             ViewBag.Username = HttpContext.Session.GetString("username");
             ViewBag.Role = HttpContext.Session.GetString("role");
 
@@ -109,20 +109,34 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.Aktors.Add(aktor);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Aktor Berhasil Ditambahkan !!";
                         return RedirectToAction("Index");
                     }
-                    ViewBag.Divisis = GetDivisis();
-                    return View(aktor);
+
+                    if (aktor.Username == null || aktor.Password == null || aktor.Role == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        ViewBag.Divisis = GetDivisis();
+                        return View(aktor);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Aktor Gagal Ditambahkan !!";
+                        ViewBag.Divisis = GetDivisis();
+                        return View(aktor);
+                    }
+
                 }
             }
             else
             {
                 return RedirectToAction("Index", "Home");
             }
-		}
+        }
 
-		public IActionResult Edit(int id)
-		{
+        public IActionResult Edit(int id)
+        {
             ViewBag.Username = HttpContext.Session.GetString("username");
             ViewBag.Role = HttpContext.Session.GetString("role");
 
@@ -145,11 +159,11 @@ namespace RiskManagementScratch.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-		}
+        }
 
-		[HttpPost]
-		public IActionResult Edit(Aktor aktor)
-		{
+        [HttpPost]
+        public IActionResult Edit(Aktor aktor)
+        {
             ViewBag.Username = HttpContext.Session.GetString("username");
             ViewBag.Role = HttpContext.Session.GetString("role");
 
@@ -167,21 +181,33 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.Aktors.Update(aktor);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Aktor Berhasil Diubah !!";
                         return RedirectToAction("Index");
                     }
 
-                    ViewBag.Divisis = GetDivisis();
-                    return View(aktor);
+                    if (aktor.Username == null || aktor.Role == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        ViewBag.Divisis = GetDivisis();
+                        return View(aktor);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Aktor Gagal Diubah !!";
+                        ViewBag.Divisis = GetDivisis();
+                        return View(aktor);
+                    }
                 }
             }
             else
             {
                 return RedirectToAction("Index", "Home");
             }
-		}
+        }
 
-		public IActionResult Delete(int id)
-		{
+        public IActionResult Delete(int id)
+        {
             ViewBag.Username = HttpContext.Session.GetString("username");
             ViewBag.Role = HttpContext.Session.GetString("role");
 
@@ -196,8 +222,16 @@ namespace RiskManagementScratch.Controllers
                 else
                 {
                     Aktor aktor = _applicationDbContext.Aktors.Find(id);
-                    _applicationDbContext.Aktors.Remove(aktor);
-                    _applicationDbContext.SaveChanges();
+
+                    if (aktor != null)
+                    {
+                        TempData["IsDelete"] = "True";
+                        TempData["ID"] = id;
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Aktor Tidak Bisa Dihapus !!";
+                    }
 
                     return RedirectToAction("Index");
                 }
@@ -206,6 +240,15 @@ namespace RiskManagementScratch.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-		}
-	}
+        }
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            Aktor aktor = _applicationDbContext.Aktors.Find(id);
+            _applicationDbContext.Aktors.Remove(aktor);
+            _applicationDbContext.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+    }
 }

@@ -23,7 +23,6 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Nama Aksi Kunci</label>
                     <input type="text" class="form-control" asp-for="Nama_Aksi_Kunci">
-                    <span asp-validation-for="Nama_Aksi_Kunci" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
@@ -31,8 +30,18 @@
                     <select asp-for="Id_Aksi_Utama" name="Id_Aksi_Utama" class="form-select" asp-items="ViewBag.AksiUtamas"></select>
                 </div>
 
-                <div class="d-grid gap-2 mt-4">
-                    <button type="submit" class="btn btn-success btn-block text-white"><i class="fa-regular fa-floppy-disk"></i> Submit</button>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <div class="d-grid gap-2">
+                            <input type="reset" class="btn btn-danger text-white" value="Batal" />
+                        </div>
+                    </div>
+
+                    <div class="col-8">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-block text-white"><i class="fa-regular fa-floppy-disk"></i> Tambahkan</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

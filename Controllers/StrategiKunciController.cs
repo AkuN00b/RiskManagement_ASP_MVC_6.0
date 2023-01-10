@@ -85,10 +85,21 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.StrategiKuncis.Add(strategiKunci);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Strategi Kunci Berhasil Ditambahkan !!";
                         return RedirectToAction("Index");
                     }
 
-                    return View(strategiKunci);
+                    if (strategiKunci.Nama_Strategi_Kunci == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        return View(strategiKunci);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Strategi Kunci Gagal Ditambahkan !!";
+                        return View(strategiKunci);
+                    }
                 }
             }
             else
@@ -142,10 +153,21 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.StrategiKuncis.Update(strategiKunci);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Strategi Kunci Berhasil Diubah !!";
                         return RedirectToAction("Index");
                     }
 
-                    return View(strategiKunci);
+                    if (strategiKunci.Nama_Strategi_Kunci == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        return View(strategiKunci);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Strategi Kunci Gagal Diubah !!";
+                        return View(strategiKunci);
+                    }
                 }
             }
             else
@@ -170,8 +192,16 @@ namespace RiskManagementScratch.Controllers
                 else
                 {
                     StrategiKunci strategiKunci = _applicationDbContext.StrategiKuncis.Find(id);
-                    _applicationDbContext.StrategiKuncis.Remove(strategiKunci);
-                    _applicationDbContext.SaveChanges();
+
+                    if (strategiKunci != null)
+                    {
+                        TempData["IsDelete"] = "True";
+                        TempData["ID"] = id;
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Strategi Kunci Tidak Bisa Dihapus !!";
+                    }
 
                     return RedirectToAction("Index");
                 }
@@ -180,6 +210,16 @@ namespace RiskManagementScratch.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            StrategiKunci strategiKunci = _applicationDbContext.StrategiKuncis.Find(id);
+
+            _applicationDbContext.StrategiKuncis.Remove(strategiKunci);
+            _applicationDbContext.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

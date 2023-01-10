@@ -85,10 +85,21 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.DampakRisikos.Add(dampakRisiko);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Dampak Risiko Berhasil Ditambahkan !!";
                         return RedirectToAction("Index");
                     }
 
-                    return View(dampakRisiko);
+                    if (dampakRisiko.Nama_Dampak_Risiko == null || dampakRisiko.Nilai_Dampak_Risiko == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        return View(dampakRisiko);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Dampak Risiko Gagal Ditambahkan !!";
+                        return View(dampakRisiko);
+                    }
                 }
             }
             else
@@ -142,10 +153,21 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.DampakRisikos.Update(dampakRisiko);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Dampak Risiko Berhasil Diubah !!";
                         return RedirectToAction("Index");
                     }
 
-                    return View(dampakRisiko);
+                    if (dampakRisiko.Nama_Dampak_Risiko == null || dampakRisiko.Nilai_Dampak_Risiko == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        return View(dampakRisiko);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Dampak Risiko Gagal Diubah !!";
+                        return View(dampakRisiko);
+                    }
                 }
             }
             else
@@ -170,8 +192,16 @@ namespace RiskManagementScratch.Controllers
                 else
                 {
                     DampakRisiko dampakRisiko = _applicationDbContext.DampakRisikos.Find(id);
-                    _applicationDbContext.DampakRisikos.Remove(dampakRisiko);
-                    _applicationDbContext.SaveChanges();
+
+                    if (dampakRisiko != null)
+                    {
+                        TempData["IsDelete"] = "True";
+                        TempData["ID"] = id;
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Dampak Risiko Tidak Bisa Dihapus !!";
+                    }
 
                     return RedirectToAction("Index");
                 }
@@ -180,6 +210,16 @@ namespace RiskManagementScratch.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            DampakRisiko dampakRisiko = _applicationDbContext.DampakRisikos.Find(id);
+
+            _applicationDbContext.DampakRisikos.Remove(dampakRisiko);
+            _applicationDbContext.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

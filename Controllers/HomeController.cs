@@ -46,8 +46,18 @@ namespace RiskManagementScratch.Controllers
 
             if (status == null)
             {
-                ViewBag.LoginStatus = 0;
-            } else 
+				ViewBag.LoginStatus = 0;
+
+                if (_aktor.Username == null || _aktor.Password == null)
+                {
+                    TempData["Warning"] = "Bidang Wajib Diisi !!";
+                } else
+                {
+                    TempData["Warning"] = "Login Gagal !!";
+                }
+
+                return View(_aktor);
+			} else 
             {
                 HttpContext.Session.SetString("username", _aktor.Username);
                 HttpContext.Session.SetString("role", status.Role);
@@ -61,19 +71,21 @@ namespace RiskManagementScratch.Controllers
 
                 if (status.Role == "Risk Manager")
                 {
+                    TempData["Notifikasi"] = "Berhasil Login, Sebagai Risk Manager !!";
                     return RedirectToAction("Index", "RiskManager");
                 } else
                 {
+                    TempData["Notifikasi"] = "Berhasil Login, Sebagai Division Member !!";
                     return RedirectToAction("Index", "DivisionMember");
                 }
             }
-
-            return View(_aktor);
         }
 
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+
+            TempData["Notifikasi"] = "Berhasil Logout !!";
             return RedirectToAction("Index", "Home");
         }
     }

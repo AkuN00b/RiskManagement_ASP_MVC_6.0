@@ -29,7 +29,8 @@ namespace RiskManagementScratch.Controllers
 			{
 				if (ViewBag.Role == "Division Member")
 				{
-					return RedirectToAction("Index", "DivisionMember");
+                    TempData["Warning"] = "Hak Akses Dilarang !!";
+                    return RedirectToAction("Index", "DivisionMember");
 				}
 				else
 				{

@@ -22,9 +22,9 @@
             <table class="table text-center tableNya">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>ID</th>
                         <th>Username</th>
-                        <th>Password</th>
+                        <th>Kata Sandi</th>
                         <th>Role</th>
                         <th>Divisi</th>
                         <th>Aksi</th>
@@ -55,7 +55,7 @@
                                     }
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" class="btn btn-warning text-white" asp-route-id="@obj.Id_Aktor"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <a asp-action="Edit" class="btn btn-warning text-white" asp-route-id="@obj.Id_Aktor"><i class="fa-solid fa-pen-to-square"></i> Ubah</a>
                                     <a asp-action="Delete" class="btn btn-danger text-white" asp-route-id="@obj.Id_Aktor"><i class="fa-solid fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>   
@@ -66,3 +66,43 @@
         </div>
     </div>
 </div>
+
+<script>
+    if ("@TempData["IsDelete"]" != "") {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success mx-3 text-white',
+                cancelButton: 'btn btn-danger mx-3 text-white'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Yakin Hapus Data?',
+            text: "Data yang dihapus tidak dapat dikembalikan",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Hapus!',
+            cancelButtonText: 'Batal!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire(
+                    'Berhasil!',
+                    'Data berhasil dihapus',
+                    'success'
+                ).then((value) => {
+                    window.location = "@Url.Action("DeleteConfirmed", "Aktor", new { id = @TempData["ID"] })";
+                });
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Gagal',
+                    'Data batal dihapus',
+                    'error'
+                )
+            }
+        })
+    }
+</script>

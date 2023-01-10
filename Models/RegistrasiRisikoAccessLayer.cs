@@ -61,7 +61,7 @@ namespace RiskManagementScratch.Models
                     con.Close();
                 }
 
-                return ("Data save Successfully");
+                return ("Registrasi Risiko Berhasil Ditambahkan");
             }
             catch (Exception ex)
             {

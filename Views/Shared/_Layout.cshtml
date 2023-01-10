@@ -6,6 +6,9 @@
     <title>@ViewData["Title"] - RiskManagementScratch</title>
     <script defer src="~/plugins/fontawesome/js/all.min.js"></script>
     <link id="theme-style" rel="stylesheet" href="~/css/portal.css">
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" id="theme-styles">
     
     <style type="text/css">
         body, html {
@@ -51,5 +54,33 @@
     </div><!--//row-->
 
     @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+    @if (TempData["Notifikasi"] != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                Swal.fire(
+                    'Berhasil !',
+                    '@TempData["Notifikasi"]',
+                    'success'
+                )
+            }
+        </script>
+    }
+
+    @if (TempData["Warning"] != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                Swal.fire(
+                    'Peringatan !',
+                    '@TempData["Warning"]',
+                    'error'
+                )
+            }
+        </script>
+    }
+
 </body>
 </html>

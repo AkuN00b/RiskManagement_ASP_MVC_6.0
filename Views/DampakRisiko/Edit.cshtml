@@ -25,17 +25,25 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Nama Dampak Risiko</label>
                     <input type="text" class="form-control" asp-for="Nama_Dampak_Risiko">
-                    <span asp-validation-for="Nama_Dampak_Risiko" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label for="" class="form-label">Nilai Dampak Risiko</label>
                     <input type="text" class="form-control" asp-for="Nilai_Dampak_Risiko">
-                    <span asp-validation-for="Nilai_Dampak_Risiko" class="text-danger"></span>
                 </div>
 
-                <div class="d-grid gap-2 mt-4">
-                    <button type="submit" class="btn btn-success btn-block text-white"><i class="fa-regular fa-floppy-disk"></i> Submit</button>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <div class="d-grid gap-2">
+                            <input type="reset" class="btn btn-danger text-white" value="Batal" />
+                        </div>
+                    </div>
+
+                    <div class="col-8">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-block text-white"><i class="fa-regular fa-floppy-disk"></i> Ubah</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

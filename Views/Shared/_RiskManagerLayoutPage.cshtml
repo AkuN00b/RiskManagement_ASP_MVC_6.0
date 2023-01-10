@@ -18,6 +18,9 @@
     <!-- App CSS -->  
     <link id="theme-style" rel="stylesheet" href="~/css/portal.css">
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" id="theme-styles">
+
     <style type="text/css">
         html, body {
             width: 100%;
@@ -110,7 +113,7 @@
                         <div class="app-utility-item app-user-dropdown dropdown">
                             <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="~/images/iconUser.png" alt="user profile"></a>
                             <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Logout">Log Out</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Logout">Keluar</a></li>
                             </ul>
                         </div><!--//app-user-dropdown--> 
                     </div><!--//app-utilities-->
@@ -135,7 +138,7 @@
                                 <span class="nav-icon">
                                     <i class="fa-solid fa-house fa-2x mr-5" width="1em" height="1em"></i>
                                  </span>
-                                 <span class="nav-link-text jarakNavbar">Dashboard</span>
+                                 <span class="nav-link-text jarakNavbar">Beranda</span>
                             </a><!--//nav-link-->
                         </li><!--//nav-item-->
                         <li class="nav-item">
@@ -277,5 +280,32 @@
     <!-- Page Specific JS -->
     <script src="~/js/app.js"></script> 
 
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+    @if (TempData["Notifikasi"] != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                Swal.fire(
+                    'Berhasil !',
+                    '@TempData["Notifikasi"]',
+                    'success'
+                )
+            }
+        </script>
+    }
+
+    @if (TempData["Warning"] != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                Swal.fire(
+                    'Peringatan !',
+                    '@TempData["Warning"]',
+                    'error'
+                )
+            }
+        </script>
+    }
 </body>
 </html> 

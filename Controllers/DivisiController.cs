@@ -85,10 +85,21 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.Divisis.Add(divisi);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Divisi Berhasil Ditambahkan !!";
                         return RedirectToAction("Index");
                     }
 
-                    return View(divisi);
+                    if (divisi.Nama_Divisi == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        return View(divisi);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Divisi Gagal Ditambahkan !!";
+                        return View(divisi);
+                    }
                 }
             }
             else
@@ -142,10 +153,21 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.Divisis.Update(divisi);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Divisi Berhasil Diubah !!";
                         return RedirectToAction("Index");
                     }
 
-                    return View(divisi);
+                    if (divisi.Nama_Divisi == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        return View(divisi);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Divisi Gagal Diubah !!";
+                        return View(divisi);
+                    }
                 }
             }
             else
@@ -170,8 +192,16 @@ namespace RiskManagementScratch.Controllers
                 else
                 {
                     Divisi divisi = _applicationDbContext.Divisis.Find(id);
-                    _applicationDbContext.Divisis.Remove(divisi);
-                    _applicationDbContext.SaveChanges();
+
+                    if (divisi != null)
+                    {
+                        TempData["IsDelete"] = "True";
+                        TempData["ID"] = id;
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Divisi Tidak Bisa Dihapus !!";
+                    }
 
                     return RedirectToAction("Index");
                 }
@@ -180,6 +210,15 @@ namespace RiskManagementScratch.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            Divisi divisi = _applicationDbContext.Divisis.Find(id);
+            _applicationDbContext.Divisis.Remove(divisi);
+            _applicationDbContext.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

@@ -85,10 +85,21 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.FrekuensiRisikos.Add(frekuensiRisiko);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Frekuensi Risiko Berhasil Ditambahkan !!";
                         return RedirectToAction("Index");
                     }
 
-                    return View(frekuensiRisiko);
+                    if (frekuensiRisiko.Nama_Frekuensi_Risiko == null || frekuensiRisiko.Nilai_Frekuensi_Risiko == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        return View(frekuensiRisiko);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Frekuensi Risiko Gagal Ditambahkan !!";
+                        return View(frekuensiRisiko);
+                    }
                 }
             }
             else
@@ -142,10 +153,21 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.FrekuensiRisikos.Update(frekuensiRisiko);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Frekuensi Risiko Berhasil Diubah !!";
                         return RedirectToAction("Index");
                     }
 
-                    return View(frekuensiRisiko);
+                    if (frekuensiRisiko.Nama_Frekuensi_Risiko == null || frekuensiRisiko.Nilai_Frekuensi_Risiko == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        return View(frekuensiRisiko);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Frekuensi Risiko Gagal Diubah !!";
+                        return View(frekuensiRisiko);
+                    }
                 }
             }
             else
@@ -170,8 +192,16 @@ namespace RiskManagementScratch.Controllers
                 else
                 {
                     FrekuensiRisiko frekuensiRisiko = _applicationDbContext.FrekuensiRisikos.Find(id);
-                    _applicationDbContext.FrekuensiRisikos.Remove(frekuensiRisiko);
-                    _applicationDbContext.SaveChanges();
+
+                    if (frekuensiRisiko != null)
+                    {
+                        TempData["IsDelete"] = "True";
+                        TempData["ID"] = id;
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Frekuensi Risiko Tidak Bisa Dihapus !!";
+                    }
 
                     return RedirectToAction("Index");
                 }
@@ -180,6 +210,16 @@ namespace RiskManagementScratch.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            FrekuensiRisiko frekuensiRisiko = _applicationDbContext.FrekuensiRisikos.Find(id);
+
+            _applicationDbContext.FrekuensiRisikos.Remove(frekuensiRisiko);
+            _applicationDbContext.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

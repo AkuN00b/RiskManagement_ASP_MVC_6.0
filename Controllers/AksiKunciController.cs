@@ -111,11 +111,23 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.AksiKuncis.Add(aksiKunci);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Aksi Kunci Berhasil Ditambahkan !!";
                         return RedirectToAction("Index");
                     }
 
-                    ViewBag.AksiUtamas = GetAksiUtamas();
-                    return View(aksiKunci);
+                    if (aksiKunci.Nama_Aksi_Kunci == null || aksiKunci.Id_Aksi_Utama == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        ViewBag.AksiUtamas = GetAksiUtamas();
+                        return View(aksiKunci);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Aksi Kunci Gagal Ditambahkan !!";
+                        ViewBag.AksiUtamas = GetAksiUtamas();
+                        return View(aksiKunci);
+                    }
                 }
             }
             else
@@ -170,11 +182,23 @@ namespace RiskManagementScratch.Controllers
                     {
                         _applicationDbContext.AksiKuncis.Update(aksiKunci);
                         _applicationDbContext.SaveChanges();
+
+                        TempData["Notifikasi"] = "Aksi Kunci Berhasil Diubah !!";
                         return RedirectToAction("Index");
                     }
 
-                    ViewBag.AksiKuncis = GetAksiUtamas();
-                    return View(aksiKunci);
+                    if (aksiKunci.Nama_Aksi_Kunci == null || aksiKunci.Id_Aksi_Utama == null)
+                    {
+                        TempData["Warning"] = "Bidang Wajib Diisi !!";
+                        ViewBag.AksiUtamas = GetAksiUtamas();
+                        return View(aksiKunci);
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Aksi Kunci Gagal Diubah !!";
+                        ViewBag.AksiUtamas = GetAksiUtamas();
+                        return View(aksiKunci);
+                    }
                 }
             }
             else
@@ -199,8 +223,16 @@ namespace RiskManagementScratch.Controllers
                 else
                 {
                     AksiKunci aksiKunci = _applicationDbContext.AksiKuncis.Find(id);
-                    _applicationDbContext.AksiKuncis.Remove(aksiKunci);
-                    _applicationDbContext.SaveChanges();
+
+                    if (aksiKunci != null)
+                    {
+                        TempData["IsDelete"] = "True";
+                        TempData["ID"] = id;
+                    }
+                    else
+                    {
+                        TempData["Warning"] = "Aksi Kunci Tidak Bisa Dihapus !!";
+                    }
 
                     return RedirectToAction("Index");
                 }
@@ -210,5 +242,17 @@ namespace RiskManagementScratch.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            AksiKunci aksiKunci = _applicationDbContext.AksiKuncis.Find(id);
+
+            _applicationDbContext.AksiKuncis.Remove(aksiKunci);
+            _applicationDbContext.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        
     }
 }

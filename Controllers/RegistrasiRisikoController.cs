@@ -255,7 +255,7 @@ namespace RiskManagementScratch.Controllers
                     {
                         string resp = rral.AddRRrecord(registrasiDanDetailRisiko);
                         TempData["Notifikasi"] = resp;
-                        return RedirectToAction("Index", "RiskManager");
+                        return RedirectToAction("Index", "DivisionMember");
                     }
 
                     ViewBag.StrategiKuncis = GetStrategiKuncis();
@@ -268,7 +268,7 @@ namespace RiskManagementScratch.Controllers
                     ViewBag.KategoriDetailRisikos = GetKategoriDetailRisikos();
                     ViewBag.Divisis = GetDivisis();
 
-                    TempData["Notifikasi"] = "Registrasi Risiko Gagal Didaftarkan !!";
+                    TempData["Warning"] = "Registrasi Risiko Gagal Didaftarkan !!";
 
                     return View(registrasiDanDetailRisiko);
                 }

@@ -8,6 +8,7 @@ namespace RiskManagementScratch.Models
     {
         [Key]
         public Guid Id_Risk_Regist { get; set; }
+        public string? Kode_Risk_Regist { get; set; }
         [ForeignKey("Divisi")]
         public int Id_Divisi { get; set; }
         public Divisi? Divisi { get; set; }

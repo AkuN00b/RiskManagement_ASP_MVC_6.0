@@ -15,6 +15,8 @@ namespace RiskManagementScratch.Models
 
         public string AddRRrecord(RegistrasiDanDetailRisiko registrasiDanDetailRisiko)
         {
+            string now = DateTime.Now.ToString();
+            //var a = registrasiDanDetailRisiko.RR.Tanggal_Pembuatan + " - " + registrasiDanDetailRisiko.RR.Id_Divisi + " - " + registrasiDanDetailRisiko.RR.Id_Aktor;
             var a = Guid.NewGuid();
 
             try

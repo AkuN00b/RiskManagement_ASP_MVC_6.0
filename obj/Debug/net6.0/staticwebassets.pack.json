@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\images\\doc-thumb-2.jpg"
     },
     {
+      "Id": "C:\\Belajar C# asp.NET\\MVC\\RiskManagementScratch\\wwwroot\\images\\heatMap.png",
+      "PackagePath": "staticwebassets\\images\\heatMap.png"
+    },
+    {
       "Id": "C:\\Belajar C# asp.NET\\MVC\\RiskManagementScratch\\wwwroot\\images\\iconRiskManagement.png",
       "PackagePath": "staticwebassets\\images\\iconRiskManagement.png"
     },

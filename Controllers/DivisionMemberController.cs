@@ -81,6 +81,77 @@ namespace RiskManagementScratch.Controllers
         }
 
         [HttpGet]
+        public JsonResult GetValueTahunAwal(string tahun)
+        {
+            string idDivisi = HttpContext.Session.GetString("idDivisi");
+
+            var registrasiRisikos = _applicationDbContext.RegistrasiRisikos.Select(RegistrasiRisiko => RegistrasiRisiko).Where(m => m.Tanggal_Pembuatan.Year.ToString() == tahun);
+
+            var value = registrasiRisikos.Include("FrekuensiRisiko").Include("DampakRisiko")
+            .Where(c => c.Id_Divisi.ToString() == idDivisi)
+            .Select(ak => new
+            {
+                x = (ak.FrekuensiRisiko.Nilai_Frekuensi_Risiko / 10),
+                y = (ak.DampakRisiko.Nilai_Dampak_Risiko / 10)
+            }).ToList();
+
+            return Json(value);
+        }
+
+        [HttpGet]
+        public JsonResult GetValueTahunAwalSemua()
+        {
+            string idDivisi = HttpContext.Session.GetString("idDivisi");
+
+            var registrasiRisikos = _applicationDbContext.RegistrasiRisikos.Select(RegistrasiRisiko => RegistrasiRisiko);
+
+            var value = registrasiRisikos.Include("FrekuensiRisiko").Include("DampakRisiko")
+            .Where(c => c.Id_Divisi.ToString() == idDivisi)
+            .Select(ak => new
+            {
+                x = (ak.FrekuensiRisiko.Nilai_Frekuensi_Risiko / 10),
+                y = (ak.DampakRisiko.Nilai_Dampak_Risiko / 10)
+            }).ToList();
+
+            return Json(value);
+        }
+
+        [HttpGet]
+        public JsonResult GetValueTahunSisa(string tahun)
+        {
+            string idDivisi = HttpContext.Session.GetString("idDivisi");
+
+            var registrasiRisikos = _applicationDbContext.RegistrasiRisikos.Select(RegistrasiRisiko => RegistrasiRisiko).Where(m => m.Tanggal_Pembuatan.Year.ToString() == tahun);
+
+            var value = registrasiRisikos.Include("FrekuensiRisikoo").Include("DampakRisikoo")
+            .Where(c => c.Id_Divisi.ToString() == idDivisi)
+            .Select(ak => new
+            {
+                x = (ak.FrekuensiRisikoo.Nilai_Frekuensi_Risiko / 10),
+                y = (ak.DampakRisikoo.Nilai_Dampak_Risiko / 10)
+            }).ToList();
+
+            return Json(value);
+        }
+
+        [HttpGet]
+        public JsonResult GetValueTahunSisaSemua()
+        {
+            string idDivisi = HttpContext.Session.GetString("idDivisi");
+
+            var registrasiRisikos = _applicationDbContext.RegistrasiRisikos.Select(RegistrasiRisiko => RegistrasiRisiko);
+
+            var value = registrasiRisikos.Include("FrekuensiRisikoo").Include("DampakRisikoo").Where(c => c.Id_Divisi.ToString() == idDivisi)
+            .Select(ak => new
+            {
+                x = (ak.FrekuensiRisikoo.Nilai_Frekuensi_Risiko / 10),
+                y = (ak.DampakRisikoo.Nilai_Dampak_Risiko / 10)
+            }).ToList();
+
+            return Json(value);
+        }
+
+        [HttpGet]
         public JsonResult GetRegistrasiProyek()
         {
             string idDivisi = HttpContext.Session.GetString("idDivisi");
@@ -91,7 +162,26 @@ namespace RiskManagementScratch.Controllers
             .Where(c => c.Id_Divisi.ToString() == idDivisi)
             .Select(ak => new
             {
-                id = ak.Id_Risk_Regist,
+                id = ak.Kode_Risk_Regist,
+                aktor = ak.Aktor.Username
+            }).ToList();
+
+            return Json(value);
+        }
+
+        [HttpGet]
+        public JsonResult GetRegistrasiProyekTahun(string tahun)
+        {
+            string idDivisi = HttpContext.Session.GetString("idDivisi");
+
+            var registrasiRisikos = _applicationDbContext.RegistrasiRisikos.Select(RegistrasiRisiko => RegistrasiRisiko).Where(m => m.Tanggal_Pembuatan.Year.ToString() == tahun);
+
+            var value = registrasiRisikos.Include("Divisi").Include("Aktor")
+            .Where(c => c.Id_Divisi.ToString() == idDivisi)
+            .Select(ak => new
+            {
+                id = ak.Kode_Risk_Regist,
+                divisi = ak.Divisi.Nama_Divisi,
                 aktor = ak.Aktor.Username
             }).ToList();
 

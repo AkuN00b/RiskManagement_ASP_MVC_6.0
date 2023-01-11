@@ -3,6 +3,25 @@
     Layout = "~/Views/Shared/_DivisionMemberLayoutPage.cshtml";
 }
 
+<style>
+    .risikoAwal:hover {
+        cursor: pointer;
+    }
+
+    .sisaRisiko:hover {
+        cursor: pointer;
+    }
+
+    canvas {
+        background-image: url('/images/heatMap.png');  
+        background-size: 785px 355px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        padding-right: 23px;
+        padding-bottom: 5px;
+    }
+</style>
+
 <div class="app-content pt-3 p-md-3 p-lg-4">
     <div class="container-xl">
         <div class="bgKonten">
@@ -20,23 +39,23 @@
                 <div class="row">
                     <div class="col-md-8 col-lg-8 col-12">
                         <label for="setting-input-2" class="form-label" style="font-weight: bold; color: black;">Filter (Tahun)</label>
-                        <select class="form-select" id="setting-input-2" required style="color: black;">
-                            <option>2022</option>
-                            <option>2021</option>
-                            <option>2020</option>
+                        <select class="form-select" id="filterTahun" required style="color: black;">
+                            <option value="0">-- Pilih Tahun --</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
                         </select>
                     </div>
 
                     <div class="col-md-4 col-lg-4 col-12">
                         <table border="0">
                             <thead>
-                                <tr>
+                                <tr class="risikoAwal" id="idRisikoAwal">
                                     <td class="pt-2"><span class="circle" style="background: #89e8e7;"><span></td>
                                     <td><div style="padding-left: 5px;">Risiko Awal</div></td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr class="sisaRisiko" id="idSisaRisiko">
                                     <td class="pt-2"><span class="circle" style="background: #088ee8;"><span></td>
                                     <td><div style="padding-left: 5px;">Sisa Risiko</div></td>
                                 </tr>
@@ -80,70 +99,360 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('myChart');
 
-  var dataNya = [];
+    var valueTahun = '';
 
-  getDataRisikoAwal();
+    var ra = document.getElementById('idRisikoAwal');
+    var sr = document.getElementById('idSisaRisiko');
 
-  async function getDataRisikoAwal() {
-      const respon = await fetch('@Url.Action("GetRegistrasiProyek")');
-      console.log(respon);
-
-      const dataRP = await respon.json();
-      console.log(dataRP);
-
-      const lengthRP = await dataRP.length;
-      console.log(lengthRP);
-
-      var tbData = document.getElementsByTagName('table> tbody:last');
-
-      dataNya.push(dataRP);
-
-      for (var i = 0; i < lengthRP; i++) {
-          $('#tableRP tbody').append('<tr><td>' + dataNya[0][i].id + '</td><td>' + dataNya[0][i].aktor + '</td></tr>');
-      }
-
-
-
-      const response = await fetch('@Url.Action("GetValueRisikoAwal")');
-      console.log(response);
-
-      const data = await response.json();
-      console.log(data);
-
-      const response2 = await fetch('@Url.Action("GetValueSisaRisiko")');
-      console.log(response2);
-
-      const data2 = await response2.json();
-      console.log(data2);
-
-      const length = await data.length;
-      console.log(length);
-
-      new Chart(ctx, {
+    var myChartAwal = {
         type: 'scatter',
         data: {
             datasets: [{
             label: 'Risiko Awal',
-            data: data,
+            data: [],
             backgroundColor: '#89e8e7'
-            }, 
-            {
-            label: 'Sisa Risiko',
-            data: data2,
+            }],
+        },
+
+        options: {
+            scales: {
+                xAxes: [{
+                type: 'linear',
+                position: 'bottom',
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 10
+                    }  
+                }],
+
+                yAxes: [{
+                type: 'linear',
+                position: 'bottom',
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 10
+                    }  
+                }]
+            }
+        }
+    };  
+
+    var myChartSisa = {
+        type: 'scatter',
+        data: {
+            datasets: [{
+            label: 'Risiko Sisa',
+            data: [],
             backgroundColor: '#088ee8'
             }],
         },
 
         options: {
             scales: {
-              x: {
+                xAxes: [{
                 type: 'linear',
                 position: 'bottom',
-              }
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 10
+                    }  
+                }],
+
+                yAxes: [{
+                type: 'linear',
+                position: 'bottom',
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 10
+                    }  
+                }]
             }
         }
-      });  
-  }
+    };  
+
+    ra.addEventListener('click', function() {
+        console.log(valueTahun);
+
+        getDataRisikoAwalAja(valueTahun);
+    });
+
+    sr.addEventListener('click', function() {
+        console.log(valueTahun);
+
+        getDataRisikoSisaAja(valueTahun);
+    });
+
+    async function getDataRisikoAwalSemua() {
+        var radarGraphAwal = new Chart(ctx, myChartAwal);
+
+        var url = '@Url.Action("GetValueTahunAwalSemua")';
+        console.log(url);
+
+        const responseAwalAja = fetch(url);
+
+        responseAwalAja.then(Res=>Res.json()).then(d=>{
+            console.log(d);
+            radarGraphAwal.data.datasets[0].data = d;
+            radarGraphAwal.update();
+        });
+    }
+
+    async function getDataRisikoSisaSemua() {
+        var radarGraphSisa = new Chart(ctx, myChartSisa);
+
+        var url = '@Url.Action("GetValueTahunSisaSemua")';
+        console.log(url);
+
+        const responseAwalSisa = fetch(url);
+
+        responseAwalSisa.then(Res=>Res.json()).then(d=>{
+            console.log(d);
+            radarGraphSisa.data.datasets[0].data = d;
+            radarGraphSisa.update();
+        });
+    }
+
+    async function getDataRisikoAwalAja(valueTahun) {
+        if (valueTahun == 0) {
+            getDataRisikoAwalSemua();
+        } else {
+            var radarGraphAwal = new Chart(ctx, myChartAwal);
+
+            var url = '@Url.Action("GetValueTahunAwal")'+'?tahun='+valueTahun;
+            console.log(url);
+            const responseAwalAja = fetch(url);
+            responseAwalAja.then(Res=>Res.json()).then(d=>{
+                console.log(d);
+                radarGraphAwal.data.datasets[0].data = d;
+                radarGraphAwal.update();
+            });
+        }
+    }
+
+    async function getDataRisikoSisaAja(valueTahun) {
+        if (valueTahun == 0) {
+            getDataRisikoSisaSemua();
+        } else {
+            var radarGraphSisa = new Chart(ctx, myChartSisa);
+
+            var url = '@Url.Action("GetValueTahunSisa")'+'?tahun='+valueTahun;
+            console.log(url);
+            const responseAwalSisa = fetch(url);
+            responseAwalSisa.then(Res=>Res.json()).then(d=>{
+                console.log(d);
+                radarGraphSisa.data.datasets[0].data = d;
+                radarGraphSisa.update();
+            });
+        }
+    }
+
+    var dataNya = [];
+
+    getDataRisikoAwal();
+
+    async function getDataRisikoAwal() {
+        const respon = await fetch('@Url.Action("GetRegistrasiProyek")');
+        console.log(respon);
+
+        const dataRP = await respon.json();
+        console.log(dataRP);
+
+        const lengthRP = await dataRP.length;
+        console.log(lengthRP);
+
+        var tbData = document.getElementsByTagName('table> tbody:last');
+
+        dataNya.push(dataRP);
+
+        var trs = document.getElementById("tableRP").getElementsByTagName("tr");
+        while(trs.length>0) trs[0].parentNode.removeChild(trs[0]);
+
+        var ths = document.getElementById("tableRP").getElementsByTagName("th");
+        while(ths.length>0) ths[0].parentNode.removeChild(ths[0]);
+
+        $.getJSON('@Url.Action("GetRegistrasiProyek")', function(aksiutamas) {
+            $('#tableRP thead').append('<th>ID Registrasi Proyek</th><th>Username</th>');
+
+            $.each(aksiutamas, function (index, aksiutama) {
+                $('#tableRP tbody').append('<tr><td>' + aksiutama.id + '</td><td>' + aksiutama.aktor + '</td></tr>');
+            }); 
+        });
+
+
+        const response = await fetch('@Url.Action("GetValueRisikoAwal")');
+        console.log(response);
+
+        const data = await response.json();
+        console.log(data);
+
+        const response2 = await fetch('@Url.Action("GetValueSisaRisiko")');
+        console.log(response2);
+
+        const data2 = await response2.json();
+        console.log(data2);
+
+        const length = await data.length;
+        console.log(length);
+
+        var myChartt = {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                label: 'Risiko Awal',
+                data: data,
+                backgroundColor: '#89e8e7'
+                }, 
+                {
+                label: 'Sisa Risiko',
+                data: data2,
+                backgroundColor: '#088ee8'
+                }],
+            },
+
+            options: {
+                scales: {
+                    xAxes: [{
+                    type: 'linear',
+                    position: 'bottom',
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 10
+                      }  
+                    }],
+
+                    yAxes: [{
+                    type: 'linear',
+                    position: 'bottom',
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 10
+                      }  
+                    }]
+                }
+            }
+        };  
+        new Chart(ctx, myChartt);
+
+    }
+
+    var awal = [];
+    var sisa = [];
+
+    const tahun = document.getElementById('filterTahun');
+
+    tahun.addEventListener('change', function handleChange(event) {
+        console.log(event.target.value);
+
+        valueTahun = event.target.value;
+
+        getDataTahun(event.target.value);
+
+        awal = [];
+        sisa = [];
+    });
+
+    var myChart = {
+        type: 'scatter',
+        data: {
+            datasets: [{
+            label: 'Risiko Awal',
+            data: [],
+            backgroundColor: '#89e8e7'
+            }, 
+            {
+            label: 'Sisa Risiko',
+            data: [],
+            backgroundColor: '#088ee8'
+            }],
+        },
+
+        options: {
+            scales: {
+                xAxes: [{
+                type: 'linear',
+                position: 'bottom',
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 10
+                    }  
+                }],
+
+                yAxes: [{
+                type: 'linear',
+                position: 'bottom',
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 10
+                    }  
+                }]
+            }
+        }
+    };  
+
+    async function getDataTahun(tahun) {
+        if (tahun == 0) {
+            getDataRisikoAwal();
+        } else {
+            var radarGraph = new Chart(ctx, myChart);
+
+            var trs = document.getElementById("tableRP").getElementsByTagName("tr");
+            while(trs.length>0) trs[0].parentNode.removeChild(trs[0]);
+
+            var ths = document.getElementById("tableRP").getElementsByTagName("th");
+            while(ths.length>0) ths[0].parentNode.removeChild(ths[0]);
+
+            $.getJSON('@Url.Action("GetRegistrasiProyekTahun")', { tahun : tahun }, function(aksiutamas) {
+                $('#tableRP thead').append('<th>ID Registrasi Proyek</th><th>Username</th>');
+
+                $.each(aksiutamas, function (index, aksiutama) {
+                    $('#tableRP tbody').append('<tr><td>' + aksiutama.id + '</td><td>' + aksiutama.aktor + '</td></tr>');
+                }); 
+
+            });
+
+            $.getJSON('@Url.Action("GetValueTahunAwal")', { tahun : tahun }, function(aksiutamasc) {
+                $.each(aksiutamasc, function (index, aksiutamac) {
+                    awal = aksiutamac;
+                }); 
+
+                console.log(awal);
+            });
+
+            $.getJSON('@Url.Action("GetValueTahunSisa")', { tahun : tahun }, function(aksiutamasv) {
+                $.each(aksiutamasv, function (index, aksiutamav) {
+                    sisa = aksiutamav;
+                }); 
+
+                console.log(sisa);
+            });
+
+            var url = '@Url.Action("GetValueTahunAwal")'+'?tahun='+tahun;
+            console.log(url);
+            const responseAwal = fetch(url);
+            responseAwal.then(Res=>Res.json()).then(d=>{
+                console.log(d);
+                radarGraph.data.datasets[0].data = d;
+                radarGraph.update();
+            });
+
+            var url = '@Url.Action("GetValueTahunSisa")'+'?tahun='+tahun;
+            console.log(url);
+            const responseSisa = fetch(url);
+            responseSisa.then(Res=>Res.json()).then(e=>{
+                console.log(e);
+                radarGraph.data.datasets[1].data = e;
+                radarGraph.update();
+            });
+        }
+    }
 </script>

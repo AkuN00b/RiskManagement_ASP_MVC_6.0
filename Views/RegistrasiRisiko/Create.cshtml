@@ -41,31 +41,6 @@
                 </div>
 
                 <div class="row mb-3">
-                    <h5>Strategi</h5>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="" class="form-label">Strategi Kunci</label>
-                            <select name="Id_Strategi_Kunci" id="strategi_kunci" class="form-select" asp-items="ViewBag.StrategiKuncis"></select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="" class="form-label">Aksi Utama</label>
-                            <select name="Id_Aksi_Utama" id="aksi_utama" class="form-select"></select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="" class="form-label">Aksi Kunci</label>
-                            <select id="aksi_kunci" asp-for="RR.Id_Aksi_Kunci" class="form-select"></select>
-                        </div>
-                    </div>
-                    <hr />
-                </div>
-
-                <div class="row mb-3">
                     <h5>Risiko Utama</h5>
                     <div class="col-md-8">
                         <div class="mb-3">
@@ -195,6 +170,31 @@
                     <hr />
 
                     <input type="hidden" id="hdnLastIndex" value="0" />
+                </div>
+
+                <div class="row mb-3">
+                    <h5>Strategi</h5>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Strategi Kunci</label>
+                            <select name="Id_Strategi_Kunci" id="strategi_kunci" class="form-select" asp-items="ViewBag.StrategiKuncis"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Aksi Utama</label>
+                            <select name="Id_Aksi_Utama" id="aksi_utama" class="form-select"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Aksi Kunci</label>
+                            <select id="aksi_kunci" asp-for="RR.Id_Aksi_Kunci" class="form-select"></select>
+                        </div>
+                    </div>
+                    <hr />
                 </div>
 
                 <div class="row mb-3">

@@ -26,7 +26,6 @@ namespace RiskManagementScratch.Models
                 cmd.Parameters.AddWithValue("@idRisk", a);
                 cmd.Parameters.AddWithValue("@idDivisi", registrasiDanDetailRisiko.RR.Id_Divisi);
                 cmd.Parameters.AddWithValue("@idAktor", registrasiDanDetailRisiko.RR.Id_Aktor);
-                cmd.Parameters.AddWithValue("@idAksiKunci", registrasiDanDetailRisiko.RR.Id_Aksi_Kunci);
                 cmd.Parameters.AddWithValue("@dampakRisiko", registrasiDanDetailRisiko.RR.Dampak_Risiko);
                 cmd.Parameters.AddWithValue("@idKategoriRisiko", registrasiDanDetailRisiko.RR.Id_Kategori_Risiko);
                 cmd.Parameters.AddWithValue("@idDampakRisikoAwal", registrasiDanDetailRisiko.RR.Id_Dampak_Risiko_Awal);

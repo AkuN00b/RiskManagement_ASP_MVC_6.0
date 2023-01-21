@@ -83,6 +83,8 @@ namespace RiskManagementScratch.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        dampakRisiko.status = "Aktif";
+
                         _applicationDbContext.DampakRisikos.Add(dampakRisiko);
                         _applicationDbContext.SaveChanges();
 
@@ -151,6 +153,8 @@ namespace RiskManagementScratch.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        dampakRisiko.status = "Aktif";
+
                         _applicationDbContext.DampakRisikos.Update(dampakRisiko);
                         _applicationDbContext.SaveChanges();
 
@@ -215,8 +219,9 @@ namespace RiskManagementScratch.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             DampakRisiko dampakRisiko = _applicationDbContext.DampakRisikos.Find(id);
+            dampakRisiko.status = "Tidak Aktif";
 
-            _applicationDbContext.DampakRisikos.Remove(dampakRisiko);
+            _applicationDbContext.DampakRisikos.Update(dampakRisiko);
             _applicationDbContext.SaveChanges();
 
             return RedirectToAction("Index");

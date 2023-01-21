@@ -15,9 +15,6 @@ namespace RiskManagementScratch.Models
         [ForeignKey("Aktor")]
         public int Id_Aktor { get; set; }
         public Aktor? Aktor { get; set; }
-        [ForeignKey("AksiKunci")]
-        public int Id_Aksi_Kunci { get; set; }
-        public AksiKunci? AksiKunci { get; set; }
         public string Dampak_Risiko { get; set; }
         [ForeignKey("KategoriRisiko")]
         public int Id_Kategori_Risiko { get; set; }

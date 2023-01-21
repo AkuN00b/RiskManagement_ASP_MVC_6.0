@@ -59,24 +59,39 @@ namespace RiskManagementScratch.Controllers
                 return View(_aktor);
 			} else 
             {
-                HttpContext.Session.SetString("username", _aktor.Username);
-                HttpContext.Session.SetString("role", status.Role);
-                HttpContext.Session.SetString("idDivisi", status.Id_Divisi.ToString());
-                HttpContext.Session.SetString("idAktor", status.Id_Aktor.ToString());
-
-                if (status.Id_Divisi != null)
+                if (status.status == "Aktif")
                 {
-                    HttpContext.Session.SetString("namaDivisi", status.Divisi.Nama_Divisi);
-                }
+                    HttpContext.Session.SetString("username", _aktor.Username);
+                    HttpContext.Session.SetString("role", status.Role);
+                    HttpContext.Session.SetString("idDivisi", status.Id_Divisi.ToString());
+                    HttpContext.Session.SetString("idAktor", status.Id_Aktor.ToString());
 
-                if (status.Role == "Risk Manager")
-                {
-                    TempData["Notifikasi"] = "Berhasil Login, Sebagai Risk Manager !!";
-                    return RedirectToAction("Index", "RiskManager");
+                    if (status.Id_Divisi != null)
+                    {
+                        HttpContext.Session.SetString("namaDivisi", status.Divisi.Nama_Divisi);
+                    }
+
+                    if (status.Role == "Risk Manager")
+                    {
+                        TempData["Notifikasi"] = "Berhasil Login, Sebagai Risk Manager !!";
+                        return RedirectToAction("Index", "RiskManager");
+                    }
+                    else
+                    {
+                        if (status.Divisi.status == "Aktif")
+                        {
+                            TempData["Notifikasi"] = "Berhasil Login, Sebagai Division Member !!";
+                            return RedirectToAction("Index", "DivisionMember");
+                        } else
+                        {
+                            TempData["Warning"] = "Divisi sudah tidak aktif !!";
+                            return View();
+                        }
+                    }
                 } else
                 {
-                    TempData["Notifikasi"] = "Berhasil Login, Sebagai Division Member !!";
-                    return RedirectToAction("Index", "DivisionMember");
+                    TempData["Warning"] = "Akun sudah tidak aktif !!";
+                    return View();
                 }
             }
         }

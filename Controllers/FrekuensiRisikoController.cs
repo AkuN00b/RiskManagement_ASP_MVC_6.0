@@ -83,6 +83,7 @@ namespace RiskManagementScratch.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        frekuensiRisiko.status = "Aktif";
                         _applicationDbContext.FrekuensiRisikos.Add(frekuensiRisiko);
                         _applicationDbContext.SaveChanges();
 
@@ -151,6 +152,8 @@ namespace RiskManagementScratch.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        frekuensiRisiko.status = "Aktif";
+
                         _applicationDbContext.FrekuensiRisikos.Update(frekuensiRisiko);
                         _applicationDbContext.SaveChanges();
 
@@ -215,8 +218,9 @@ namespace RiskManagementScratch.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             FrekuensiRisiko frekuensiRisiko = _applicationDbContext.FrekuensiRisikos.Find(id);
+            frekuensiRisiko.status = "Tidak Aktif";
 
-            _applicationDbContext.FrekuensiRisikos.Remove(frekuensiRisiko);
+            _applicationDbContext.FrekuensiRisikos.Update(frekuensiRisiko);
             _applicationDbContext.SaveChanges();
 
             return RedirectToAction("Index");

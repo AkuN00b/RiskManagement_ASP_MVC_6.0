@@ -20,76 +20,10 @@ namespace RiskManagementScratch.Controllers
 
         RegistrasiRisikoAccessLayer rral = new RegistrasiRisikoAccessLayer();
 
-        private List<SelectListItem> GetStrategiKuncis()
-        {
-            List<SelectListItem> listStrategiKuncis = new List<SelectListItem>();
-            var strategiKuncis = _applicationDbContext.StrategiKuncis.Select(StrategiKunci => StrategiKunci);
-
-            listStrategiKuncis = strategiKuncis.Select(sk => new SelectListItem()
-            {
-                Value = sk.Id_Strategi_Kunci.ToString(),
-                Text = sk.Nama_Strategi_Kunci.ToString()
-            }).ToList();
-
-            var defItem = new SelectListItem()
-            {
-                Text = "-- Pilih Strategi Kunci --",
-                Value = null
-            };
-
-            listStrategiKuncis.Insert(0, defItem);
-
-            return listStrategiKuncis;
-        }
-
-        [HttpGet]
-        public JsonResult GetAksiUtamas(string idSK)
-        {
-            if (!string.IsNullOrWhiteSpace(idSK) && idSK.Length > 0)
-            {
-                List<SelectListItem> listAksiUtamas = new List<SelectListItem>();
-                var aksiUtamas = _applicationDbContext.AksiUtamas.Select(AksiUtama => AksiUtama);
-
-                listAksiUtamas = aksiUtamas
-                .Where(c => c.Id_Strategi_Kunci.ToString() == idSK)
-                .Select(au => new SelectListItem()
-                {
-                    Value = au.Id_Aksi_Utama.ToString(),
-                    Text = au.Nama_Aksi_Utama.ToString()
-                }).ToList();
-
-                return Json(listAksiUtamas);
-            }
-
-            return null;
-        }
-
-        [HttpGet]
-        public JsonResult GetAksiKuncis(string idAU)
-        {
-            if (!string.IsNullOrWhiteSpace(idAU) && idAU.Length > 0)
-            {
-                List<SelectListItem> listAksiKuncis = new List<SelectListItem>();
-                var aksiKuncis = _applicationDbContext.AksiKuncis.Select(AksiKunci => AksiKunci);
-
-                listAksiKuncis = aksiKuncis
-                .Where(c => c.Id_Aksi_Utama.ToString() == idAU)
-                .Select(ak => new SelectListItem()
-                {
-                    Value = ak.Id_Aksi_Kunci.ToString(),
-                    Text = ak.Nama_Aksi_Kunci.ToString()
-                }).ToList();
-
-                return Json(listAksiKuncis);
-            }
-
-            return null;
-        }
-
         private List<SelectListItem> GetKategoriRisikos()
         {
             List<SelectListItem> listKategoriRisikos = new List<SelectListItem>();
-            var kategoriRisikos = _applicationDbContext.KategoriRisikos.Select(KategoriRisiko => KategoriRisiko);
+            var kategoriRisikos = _applicationDbContext.KategoriRisikos.Select(KategoriRisiko => KategoriRisiko).Where(d => d.status == "Aktif");
 
             listKategoriRisikos = kategoriRisikos.Select(kr => new SelectListItem()
             {
@@ -110,7 +44,7 @@ namespace RiskManagementScratch.Controllers
         private List<SelectListItem> GetDampakRisikos()
         {
             List<SelectListItem> listDampakRisikos = new List<SelectListItem>();
-            var dampakRisikos = _applicationDbContext.DampakRisikos.Select(DampakRisiko => DampakRisiko);
+            var dampakRisikos = _applicationDbContext.DampakRisikos.Select(DampakRisiko => DampakRisiko).Where(d => d.status == "Aktif");
 
             listDampakRisikos = dampakRisikos.Select(dr => new SelectListItem()
             {
@@ -131,7 +65,7 @@ namespace RiskManagementScratch.Controllers
         private List<SelectListItem> GetFrekuensiRisikos()
         {
             List<SelectListItem> listFrekuensiRisikos = new List<SelectListItem>();
-            var frekuensiRisikos = _applicationDbContext.FrekuensiRisikos.Select(FrekuensiRisiko => FrekuensiRisiko);
+            var frekuensiRisikos = _applicationDbContext.FrekuensiRisikos.Select(FrekuensiRisiko => FrekuensiRisiko).Where(d => d.status == "Aktif");
 
             listFrekuensiRisikos = frekuensiRisikos.Select(fr => new SelectListItem()
             {
@@ -152,12 +86,12 @@ namespace RiskManagementScratch.Controllers
         private List<SelectListItem> GetKategoriDetailRisikos()
         {
             List<SelectListItem> listKategoriDetailRisikos = new List<SelectListItem>();
-            var kategoriDetailRisikos = _applicationDbContext.KategoriDetailRisikos.Select(KategoriDetailRisiko => KategoriDetailRisiko);
+            var kategoriDetailRisikos = _applicationDbContext.KategoriDetailRisikos.Select(KategoriDetailRisiko => KategoriDetailRisiko).Where(d => d.status == "Aktif");
 
-            listKategoriDetailRisikos = kategoriDetailRisikos.Select(kdr => new SelectListItem()
+            listKategoriDetailRisikos = kategoriDetailRisikos.Select(_kategoriDetailRisiko => new SelectListItem()
             {
-                Value = kdr.Id_Kategori_Detail_Risiko.ToString(),
-                Text = kdr.Nama_Kategori_Detail_Risiko.ToString()
+                Value = _kategoriDetailRisiko.Id_Kategori_Detail_Risiko.ToString(),
+                Text = _kategoriDetailRisiko.Nama_Kategori_Detail_Risiko.ToString()
             }).ToList();
 
             var defItem = new SelectListItem()
@@ -173,7 +107,7 @@ namespace RiskManagementScratch.Controllers
         private List<SelectListItem> GetDivisis()
         {
             List<SelectListItem> listDivisis = new List<SelectListItem>();
-            var divisis = _applicationDbContext.Divisis.Select(Divisi => Divisi);
+            var divisis = _applicationDbContext.Divisis.Select(Divisi => Divisi).Where(d => d.status == "Aktif");
 
             listDivisis = divisis.Select(d => new SelectListItem()
             {
@@ -207,8 +141,6 @@ namespace RiskManagementScratch.Controllers
             {
                 if (ViewBag.Role == "Division Member")
                 {
-                    ViewBag.StrategiKuncis = GetStrategiKuncis();
-
                     ViewBag.KategoriRisikos = GetKategoriRisikos();
 
                     ViewBag.DampakRisikos = GetDampakRisikos();
@@ -258,8 +190,6 @@ namespace RiskManagementScratch.Controllers
                         return RedirectToAction("Index", "DivisionMember");
                     }
 
-                    ViewBag.StrategiKuncis = GetStrategiKuncis();
-
                     ViewBag.KategoriRisikos = GetKategoriRisikos();
 
                     ViewBag.DampakRisikos = GetDampakRisikos();
@@ -288,7 +218,7 @@ namespace RiskManagementScratch.Controllers
         {
             if (!string.IsNullOrWhiteSpace(idDR) && idDR.Length > 0)
             {
-                var dampakRisikos = _applicationDbContext.DampakRisikos.Select(DampakRisiko => DampakRisiko);
+                var dampakRisikos = _applicationDbContext.DampakRisikos.Select(DampakRisiko => DampakRisiko).Where(d => d.status == "Aktif");
 
                 var value = dampakRisikos
                 .Where(c => c.Id_Dampak_Risiko.ToString() == idDR)
@@ -305,7 +235,7 @@ namespace RiskManagementScratch.Controllers
         {
             if (!string.IsNullOrWhiteSpace(idFR) && idFR.Length > 0)
             {
-                var frekuensiRisikos = _applicationDbContext.FrekuensiRisikos.Select(FrekuensiRisiko => FrekuensiRisiko);
+                var frekuensiRisikos = _applicationDbContext.FrekuensiRisikos.Select(FrekuensiRisiko => FrekuensiRisiko).Where(d => d.status == "Aktif");
 
                 var value = frekuensiRisikos
                 .Where(c => c.Id_Frekuensi_Risiko.ToString() == idFR)

@@ -173,31 +173,6 @@
                 </div>
 
                 <div class="row mb-3">
-                    <h5>Strategi</h5>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="" class="form-label">Strategi Kunci</label>
-                            <select name="Id_Strategi_Kunci" id="strategi_kunci" class="form-select" asp-items="ViewBag.StrategiKuncis"></select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="" class="form-label">Aksi Utama</label>
-                            <select name="Id_Aksi_Utama" id="aksi_utama" class="form-select"></select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="" class="form-label">Aksi Kunci</label>
-                            <select id="aksi_kunci" asp-for="RR.Id_Aksi_Kunci" class="form-select"></select>
-                        </div>
-                    </div>
-                    <hr />
-                </div>
-
-                <div class="row mb-3">
                     <h5>Sisa Risiko</h5>
                     <div class="col-md-4">
                         <div class="mb-3">
@@ -305,10 +280,6 @@
 </div>
 
 <script>
-    const sk = document.getElementById('strategi_kunci');
-    const au = document.getElementById('aksi_utama');
-
-
     const a1 = document.getElementById('idDampakRisikoAwal');
     const b1 = document.getElementById('idFrekuensiRisikoAwal');
     const c1 = document.getElementById('progressBarRisikoAwal');
@@ -334,58 +305,6 @@
     const d3 = document.getElementById('valDampakHarapanRisiko');
     const e3 = document.getElementById('valFrekuensiHarapanRisiko');
     const f3 = document.getElementById('valAverageHarapanRisiko');
-
-    document.getElementById('aksi_utama').disabled = true;
-    document.getElementById('aksi_kunci').disabled = true;
-
-    sk.addEventListener('change', function handleChange(event) {
-        console.log(event.target.value);
-        if (event.target.value != null && event.target.value != '' && event.target.value != '-- Pilih Strategi Kunci --') {
-            $.getJSON('@Url.Action("GetAksiUtamas")', { idSK : event.target.value }, function(aksiutamas) {
-                console.log(aksiutamas);
-                if (aksiutamas != null && !jQuery.isEmptyObject(aksiutamas)) {
-                    document.getElementById('aksi_utama').disabled = false;
-                    $("#aksi_utama").empty();
-
-                    document.getElementById('aksi_kunci').disabled = true;
-                    $("#aksi_kunci").empty();
-
-                    $("#aksi_utama").append('<option>-- Pilih Aksi Utama --</option>');
-
-                    $.each(aksiutamas, function (index, aksiutama) {
-                        $("#aksi_utama").append('<option value=' + aksiutama.value + '>' + aksiutama.text + '</option>');
-                    });                    
-                }
-            });
-        } else {
-            $("#aksi_utama").empty();
-            document.getElementById('aksi_utama').disabled = true;
-            $("#aksi_kunci").empty();
-            document.getElementById('aksi_kunci').disabled = true;
-        }
-    });
-
-    au.addEventListener('change', function handleChange(event) {
-        console.log(event.target.value);
-        if (event.target.value != null && event.target.value != '' && event.target.value != '-- Pilih Aksi Utama --') {
-            $.getJSON('@Url.Action("GetAksiKuncis")', { idAU : event.target.value }, function(aksikuncis) {
-                console.log(aksikuncis);
-                if (aksikuncis != null && !jQuery.isEmptyObject(aksikuncis)) {
-                    document.getElementById('aksi_kunci').disabled = false;
-                    $("#aksi_kunci").empty();
-
-                    $("#aksi_kunci").append('<option>-- Pilih Aksi Kunci --</option>');
-
-                    $.each(aksikuncis, function (index, aksikunci) {
-                        $("#aksi_kunci").append('<option value=' + aksikunci.value + '>' + aksikunci.text + '</option>');
-                    });                    
-                }
-            });
-        } else {
-            $("#aksi_kunci").empty();
-            document.getElementById('aksi_kunci').disabled = true;
-        }
-    });
 
     a1.addEventListener('change', function handleChange(event) {
         console.log(event.target.value);

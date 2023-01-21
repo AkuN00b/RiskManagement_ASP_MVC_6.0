@@ -13,5 +13,6 @@ namespace RiskManagementScratch.Models
         [ForeignKey("Divisi")]
         public int? Id_Divisi { get; set; }
         public Divisi? Divisi { get; set; }
+        public string? status { get; set; }
     }
 }

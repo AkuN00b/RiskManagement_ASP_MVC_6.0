@@ -44,7 +44,7 @@ namespace RiskManagementScratch.Controllers
         private List<SelectListItem> GetDivisis()
         {
             List<SelectListItem> listDivisis = new List<SelectListItem>();
-            var divisis = _applicationDbContext.Divisis.Select(Divisi => Divisi);
+            var divisis = _applicationDbContext.Divisis.Select(Divisi => Divisi).Where(d => d.status == "Aktif");
 
             listDivisis = divisis.Select(d => new SelectListItem()
             {
@@ -107,6 +107,7 @@ namespace RiskManagementScratch.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        aktor.status = "Aktif";
                         _applicationDbContext.Aktors.Add(aktor);
                         _applicationDbContext.SaveChanges();
 
@@ -179,6 +180,8 @@ namespace RiskManagementScratch.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        aktor.status = "Aktif";
+
                         _applicationDbContext.Aktors.Update(aktor);
                         _applicationDbContext.SaveChanges();
 
@@ -245,7 +248,9 @@ namespace RiskManagementScratch.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             Aktor aktor = _applicationDbContext.Aktors.Find(id);
-            _applicationDbContext.Aktors.Remove(aktor);
+            aktor.status = "Tidak Aktif";
+
+            _applicationDbContext.Aktors.Update(aktor);
             _applicationDbContext.SaveChanges();
 
             return RedirectToAction("Index");

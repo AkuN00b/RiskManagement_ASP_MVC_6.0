@@ -43,8 +43,14 @@
                                 <td>@obj.Nama_Dampak_Risiko</td>
                                 <td>@obj.Nilai_Dampak_Risiko</td>
                                 <td>
-                                    <a asp-action="Edit" class="btn btn-warning text-white" asp-route-id="@obj.Id_Dampak_Risiko"><i class="fa-solid fa-pen-to-square"></i> Ubah</a>
-                                    <a asp-action="Delete" class="btn btn-danger text-white" asp-route-id="@obj.Id_Dampak_Risiko"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                    @if (obj.status == "Aktif")
+                                    {
+                                        <a asp-action="Edit" class="btn btn-warning text-white" asp-route-id="@obj.Id_Dampak_Risiko"><i class="fa-solid fa-pen-to-square"></i> Ubah</a>
+                                        <a asp-action="Delete" class="btn btn-danger text-white" asp-route-id="@obj.Id_Dampak_Risiko"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                    } else
+                                    {
+                                        <p>Status Tidak Aktif</p>
+                                    }
                                 </td>
                             </tr>   
                         }
